@@ -3,7 +3,7 @@ import Header from './components/header/header';
 
 class App extends Component {
   render() {
-    return <Header />;
+    return <Header inputValue={''} />;
   }
 }
 
