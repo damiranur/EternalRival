@@ -3,7 +3,7 @@ import SearchInput from './searchInput';
 import SearchButton from './searchButton';
 import { HeaderProps } from '../../interfaces';
 
-class Header extends Component<HeaderProps, { inputValue: string }> {
+class Header extends Component<NonNullable<unknown>, { inputValue: string }> {
   constructor(props: HeaderProps) {
     super(props);
     this.state = {

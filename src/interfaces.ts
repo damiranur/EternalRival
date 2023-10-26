@@ -14,3 +14,20 @@ export interface SearchInputProps {
 export interface SearchButtonProps {
   text: string;
 }
+
+export interface PokemonData {
+  name: string;
+  effect_entries: [
+    {
+      effect: string;
+    },
+    {
+      effect: string;
+    },
+  ];
+}
+
+export interface MyContextInterface {
+  query: PokemonData;
+  updateQuery: () => void;
+}
