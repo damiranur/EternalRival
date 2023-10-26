@@ -1,0 +1,7 @@
+.people_wrapper {
+  width: 200px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
+}

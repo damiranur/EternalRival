@@ -1,0 +1,13 @@
+form {
+  display: flex;
+  gap: 10px;
+}
+.input {
+  border: 1px solid gray;
+  border-radius: 8px;
+}
+.btn {
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 8px;
+}
