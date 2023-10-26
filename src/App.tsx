@@ -1,10 +1,5 @@
 function App() {
-  let a =12
-  return (
-    <>
-      <div>{ a }</div>
-    </>
-  );
+  return <></>;
 }
 
 export default App;
