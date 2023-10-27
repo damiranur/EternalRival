@@ -1,18 +1,17 @@
 import React from 'react';
-import { PokemonData } from '../interfaces';
+import { CharacterData } from '../interfaces';
+import getCharacters from './getCharacters';
 
 const MyContext = React.createContext<{
-  query: {
-    name: string;
-    description: string;
-  };
-  updateQuery: (data: PokemonData) => void;
+  charactersData: CharacterData[] | null;
+  updateQuery: (data: CharacterData[] | null) => void;
+  updateLoader: (isLoading: boolean) => void;
+  isLoading: boolean;
 }>({
-  query: {
-    name: '',
-    description: '',
-  },
+  charactersData: await getCharacters(localStorage.getItem('term') || ''),
   updateQuery: () => {},
+  updateLoader: () => {},
+  isLoading: false,
 });
 
 export default MyContext;

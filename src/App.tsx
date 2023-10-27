@@ -1,41 +1,44 @@
 import React, { Component } from 'react';
 import Header from './components/header/header';
 import Main from './components/body/main';
+import { CharacterData } from './interfaces';
 import MyContext from './services/myContext';
-import { PokemonData } from './interfaces';
+import ErrorBoundary from './components/addition/errorBoundary';
 
 class App extends Component {
-  updateQuery = (pokemonData: PokemonData) => {
-    if (pokemonData.effect_entries[1]) {
-      console.log(pokemonData.name, pokemonData.effect_entries[1].effect);
-    }
+  updateQuery = (charactersData: CharacterData[] | null) => {
     this.setState({
-      query: {
-        name: pokemonData.name,
-        description: pokemonData.effect_entries[1].effect,
-      },
+      charactersData: charactersData || null,
       updateQuery: this.updateQuery,
     });
   };
 
+  updateLoader = (isLoading: boolean) => {
+    this.setState({
+      isLoading: isLoading,
+    });
+  };
+
   state = {
-    query: {
-      name: '',
-      description: '',
-    },
+    charactersData: [],
     updateQuery: this.updateQuery,
+    isLoading: false,
   };
 
   render() {
-    console.log('in app', this.state);
     return (
       <MyContext.Provider
-        value={{ query: this.state.query, updateQuery: this.state.updateQuery }}
+        value={{
+          charactersData: this.state.charactersData,
+          updateQuery: this.state.updateQuery,
+          updateLoader: this.updateLoader,
+          isLoading: this.state.isLoading,
+        }}
       >
-        <>
+        <ErrorBoundary>
           <Header />
           <Main />
-        </>
+        </ErrorBoundary>
       </MyContext.Provider>
     );
   }

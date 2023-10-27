@@ -21,8 +21,6 @@ class Header extends Component<NonNullable<unknown>, { inputValue: string }> {
     return (
       <header>
         <SearchInput
-          type="text"
-          placeholder="Enter the text"
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         />

@@ -1,22 +1,36 @@
 import React, { Component } from 'react';
-import { PokemonData, SearchButtonProps } from '../../interfaces';
+import { CharacterData, SearchButtonProps } from '../../interfaces';
 import myContext from '../../services/myContext';
-import sendQuery from '../../services/sendQuery';
 import MyContext from '../../services/myContext';
+import getCharacters from '../../services/getCharacters';
 
 class SearchButton extends Component<SearchButtonProps> {
   static contextType = myContext;
   declare context: React.ContextType<typeof MyContext>;
 
+  componentDidMount() {
+    this.handleSearch();
+  }
+
+  getError = () => {
+    this.context.updateQuery(null);
+  };
+
   handleSearch = async () => {
-    const newState: PokemonData = await sendQuery(this.props.text);
+    this.context.updateLoader(true);
+    const newState: CharacterData[] = await getCharacters(this.props.text);
+    this.context.updateLoader(false);
     this.context.updateQuery(newState);
     localStorage.setItem('term', this.props.text);
-    console.log(this.context);
   };
 
   render() {
-    return <button onClick={this.handleSearch}>Search</button>;
+    return (
+      <>
+        <button onClick={this.handleSearch}>Search</button>
+        <button onClick={this.getError}>Get an error</button>
+      </>
+    );
   }
 }
 
