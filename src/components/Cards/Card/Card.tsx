@@ -10,11 +10,11 @@ class People extends Component<Props> {
   render(): ReactNode {
     return (
       <div className="people_wrapper">
-        <p>{this.props.people.name}</p>
+        <p>
+          <strong>{this.props.people.name}</strong>
+        </p>
         <p>{this.props.people.height}</p>
         <p>{this.props.people.mass}</p>
-        <p>{this.props.people.hair_color}</p>
-        <p>{this.props.people.skin_color}</p>
       </div>
     );
   }

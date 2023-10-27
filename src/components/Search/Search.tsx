@@ -7,8 +7,8 @@ class Search extends Component {
       <div className="search_container">
         <form>
           <input className="input" type="text" />
+          <button className="btn">Search</button>
         </form>
-        <button className="btn">Search</button>
       </div>
     );
   }

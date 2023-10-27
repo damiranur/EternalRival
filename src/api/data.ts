@@ -1,6 +1,6 @@
 import { IPeople } from '../models/interface';
 
-const url = 'https://swapi.dev/api/people/';
+const url = 'https://swapi.dev/api/people';
 
 export function getData(page: number) {
   const response: Promise<IPeople[]> = fetch(`${url}?page=${page}`, {
