@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from './components/header/header';
-import Main from './components/body/main';
+import MainSection from './components/body/mainSection';
 import { CharacterData } from './interfaces';
 import MyContext from './services/myContext';
 import ErrorBoundary from './components/addition/errorBoundary';
@@ -37,7 +37,7 @@ class App extends Component {
       >
         <ErrorBoundary>
           <Header />
-          <Main />
+          <MainSection />
         </ErrorBoundary>
       </MyContext.Provider>
     );

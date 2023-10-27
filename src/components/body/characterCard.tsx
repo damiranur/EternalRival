@@ -10,24 +10,24 @@ class CharacterCard extends Component<ChracterCardProps> {
     return (
       <div className={'pokemon-card'}>
         <ImageComponent src={data.image} alt={data.name + ' photo'} />
-        <h2>{data.name}</h2>
-        <p>
+        <h2 className={'character-name'}>{data.name}</h2>
+        <p className={'character-info'}>
           <span className={'card-headers'}>Species: </span>
           {data.species}
         </p>
-        <p>
+        <p className={'character-info'}>
           <span className={'card-headers'}>Status: </span>
           {data.status}
         </p>
-        <p>
+        <p className={'character-info'}>
           <span className={'card-headers'}>Location: </span>
           {data.location.name}
         </p>
-        <p>
+        <p className={'character-info'}>
           <span className={'card-headers'}>Gender: </span>
           {data.gender}
         </p>
-        <p>
+        <p className={'character-info'}>
           <span className={'card-headers'}>Episodes: </span>
           {episodesNumb}
         </p>

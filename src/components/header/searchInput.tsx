@@ -11,6 +11,7 @@ class SearchInput extends Component<SearchInputProps> {
   render() {
     return (
       <input
+        className={'search-input'}
         type="text"
         placeholder="Enter your search query"
         value={this.props.value}

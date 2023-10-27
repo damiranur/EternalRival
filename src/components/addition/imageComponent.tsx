@@ -26,7 +26,11 @@ class ImageComponent extends Component<
         {imageLoaded ? (
           <img src={src} alt={alt} />
         ) : (
-          <img src="/src/assets/loading.gif" alt="loader" />
+          <img
+            className={'loader'}
+            src="/src/assets/loading.gif"
+            alt="loader"
+          />
         )}
 
         {imageLoaded || (

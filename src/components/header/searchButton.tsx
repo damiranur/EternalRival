@@ -27,8 +27,12 @@ class SearchButton extends Component<SearchButtonProps> {
   render() {
     return (
       <>
-        <button onClick={this.handleSearch}>Search</button>
-        <button onClick={this.getError}>Get an error</button>
+        <button className={'header-button'} onClick={this.handleSearch}>
+          Search
+        </button>
+        <button className={'header-button'} onClick={this.getError}>
+          Get an error
+        </button>
       </>
     );
   }

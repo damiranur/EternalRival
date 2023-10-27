@@ -3,7 +3,7 @@ import CharacterCard from './characterCard';
 import MyContext from '../../services/myContext';
 import { CharacterData } from '../../interfaces';
 
-class Main extends Component {
+class MainSection extends Component {
   static contextType = MyContext;
   declare context: React.ContextType<typeof MyContext>;
 
@@ -18,11 +18,11 @@ class Main extends Component {
         <CharacterCard key={index} data={character} />
       ));
     } else {
-      content = <div>Ooops! Character does not found</div>;
+      content = <h1>Oops! Character does not found</h1>;
     }
 
     return <main>{content}</main>;
   }
 }
 
-export default Main;
+export default MainSection;
