@@ -1,6 +1,6 @@
 import { ChangeEvent, Component } from 'react';
 import SearchInput from './searchInput';
-import SearchButton from './searchButton';
+import NavigationButtons from './navigationButtons';
 import { HeaderProps } from '../../interfaces';
 
 class Header extends Component<NonNullable<unknown>, { inputValue: string }> {
@@ -24,7 +24,7 @@ class Header extends Component<NonNullable<unknown>, { inputValue: string }> {
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         />
-        <SearchButton text={this.state.inputValue} />
+        <NavigationButtons text={this.state.inputValue} />
       </header>
     );
   }

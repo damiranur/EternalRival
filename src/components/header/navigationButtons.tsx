@@ -4,7 +4,7 @@ import myContext from '../../services/myContext';
 import MyContext from '../../services/myContext';
 import getCharacters from '../../services/getCharacters';
 
-class SearchButton extends Component<SearchButtonProps> {
+class NavigationButtons extends Component<SearchButtonProps> {
   static contextType = myContext;
   declare context: React.ContextType<typeof MyContext>;
 
@@ -38,4 +38,4 @@ class SearchButton extends Component<SearchButtonProps> {
   }
 }
 
-export default SearchButton;
+export default NavigationButtons;
