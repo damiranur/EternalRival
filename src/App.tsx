@@ -4,14 +4,18 @@ import Main from './main/main';
 import { ResultItem, SearchResult } from './models/search.model';
 import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
-interface propsType {
+interface StateType {
   defaultValue: string;
   search: string;
   result: ResultItem[];
 }
 
-export default class App extends React.Component<null, propsType> {
-  constructor(props: null) {
+interface PropsType {
+
+}
+
+export default class App extends React.Component<PropsType, StateType> {
+  constructor(props: PropsType) {
     super(props);
     const valueStorage = (localStorage.getItem('lastSearch') as string) || '';
     this.state = {
