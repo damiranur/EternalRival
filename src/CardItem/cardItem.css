@@ -21,3 +21,10 @@
 .card-pokemon > img {
   width: 32px;
 }
+
+.pokemon-stats {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  color: rgb(0 0 0 / 40%);
+}
