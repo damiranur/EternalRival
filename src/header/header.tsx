@@ -16,22 +16,25 @@ export default class Header extends React.Component<propsType> {
   render() {
     return (
       <header className="header">
-        <span className="text-field">
-          <input
-            defaultValue={this.props.defaultValue}
-            onKeyUp={(e) => this.keyUpHandler(e.target)}
-            id="search-input"
-            type="text"
-            required
-          />
-          <label htmlFor="search-input">Search</label>
-        </span>
-        <button
-          className="button-icon-search"
-          onClick={this.props.clickSearchEvent}
-        >
-          <img src="/search-icon.svg" alt="search icon" />
-        </button>
+        <h2>Pokemon</h2>
+        <div className="text-field-container">
+          <span className="text-field">
+            <input
+              defaultValue={this.props.defaultValue}
+              onKeyUp={(e) => this.keyUpHandler(e.target)}
+              id="search-input"
+              type="text"
+              required
+            />
+            <label htmlFor="search-input">Search</label>
+          </span>
+          <button
+            className="button-icon-search"
+            onClick={this.props.clickSearchEvent}
+          >
+            <img src="/search-icon.svg" alt="search icon" />
+          </button>
+        </div>
       </header>
     );
   }
