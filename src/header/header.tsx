@@ -32,7 +32,7 @@ export default class Header extends React.Component<propsType> {
             className="button-icon-search"
             onClick={this.props.clickSearchEvent}
           >
-            <img src="/search-icon.svg" alt="search icon" />
+            <img src="./search-icon.svg" alt="search icon" />
           </button>
         </div>
       </header>
