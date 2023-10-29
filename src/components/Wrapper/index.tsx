@@ -1,8 +1,8 @@
 import { Component } from 'react';
-import { IChildrenProps } from '../../types';
+import { ChildrenProps } from '../../types';
 import styles from './Wrapper.module.scss';
 
-class Wrapper extends Component<IChildrenProps> {
+class Wrapper extends Component<ChildrenProps> {
   render() {
     const { children } = this.props;
     return <div className={styles.wrapper}>{children}</div>;

@@ -23,7 +23,7 @@ export interface ISearchTermProps {
   setSearchTerm: (searchTerm: string) => void;
 }
 
-export type IChildrenProps = {
+export type ChildrenProps = {
   children?: ReactNode;
 };
 

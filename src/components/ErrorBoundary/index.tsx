@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { ErrorInfo } from 'react-dom/client';
-import { IChildrenProps, IErrorBoundaryState } from '../../types';
+import { ChildrenProps, IErrorBoundaryState } from '../../types';
 import styles from './ErrorBoundary.module.scss';
 
-class ErrorBoundary extends Component<IChildrenProps, IErrorBoundaryState> {
+class ErrorBoundary extends Component<ChildrenProps, IErrorBoundaryState> {
   state: IErrorBoundaryState = {
     hasError: false,
   };
