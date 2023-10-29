@@ -10,9 +10,7 @@ interface StateType {
   result: ResultItem[];
 }
 
-interface PropsType {
-
-}
+interface PropsType {}
 
 export default class App extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
