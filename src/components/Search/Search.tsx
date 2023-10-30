@@ -12,11 +12,10 @@ class Search extends Component<Props> {
     value: '',
   };
 
-  getNewData = async () => {
-    const new_data = await getData(this.state.value);
+  getNewData = async (value: string) => {
+    const new_data = await getData(value);
     try {
       this.props.updateData(new_data);
-      console.log(new_data);
     } catch (e) {
       console.error('ERROR', e);
     }
@@ -29,17 +28,22 @@ class Search extends Component<Props> {
   };
 
   render(): ReactNode {
-    console.log(this.state.value);
     return (
       <div className="search_container">
-        <form onClick={this.getNewData}>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            this.getNewData(this.state.value);
+          }}
+        >
           <input
             className="input"
             type="text"
-            value={this.state.value}
-            onChange={(event) => this.changeValue(event?.target.value)}
+            onChange={(event) => {
+              this.changeValue(event.target.value);
+            }}
           />
-          <button type="button" className="btn">
+          <button type="submit" className="btn">
             Search
           </button>
         </form>

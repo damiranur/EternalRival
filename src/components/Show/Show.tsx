@@ -4,15 +4,14 @@ import Cards from '../Cards/Cards';
 import { IPeople } from '../../models/interface';
 
 type Props = {
-  data: IPeople[];
-  loader: boolean;
+  updateData: IPeople[];
 };
 
 class Show extends Component<Props> {
   render(): ReactNode {
     return (
       <div className="show_container">
-        <Cards data={this.props.data} loader={this.props.loader} />
+        <Cards updateData={this.props.updateData} />
       </div>
     );
   }
