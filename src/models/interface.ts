@@ -5,3 +5,13 @@ export interface IPeople {
   hair_color: string;
   mass: string;
 }
+
+export interface IData {
+  data: IPeople[];
+  loader: boolean;
+}
+
+export interface IError {
+  error: boolean;
+  messages: string;
+}

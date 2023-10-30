@@ -2,8 +2,8 @@ import { IPeople } from '../models/interface';
 
 const url = 'https://swapi.dev/api/people';
 
-export function getData(urlParams: string | number) {
-  const response: Promise<IPeople[]> = fetch(
+export async function getData(urlParams: string | number) {
+  const response: IPeople[] = await fetch(
     `${url}${
       typeof urlParams != 'string'
         ? `?page=${urlParams}`

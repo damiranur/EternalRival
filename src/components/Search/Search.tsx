@@ -5,6 +5,7 @@ import { IPeople } from '../../models/interface';
 
 type Props = {
   updateData: ([]: IPeople[]) => void;
+  loader: (value: boolean) => void;
 };
 
 class Search extends Component<Props> {
@@ -13,37 +14,35 @@ class Search extends Component<Props> {
   };
 
   getNewData = async (value: string) => {
+    this.props.loader(true);
     const new_data = await getData(value);
     try {
+      localStorage.setItem('data', JSON.stringify(new_data));
       this.props.updateData(new_data);
+      this.props.loader(false);
     } catch (e) {
       console.error('ERROR', e);
     }
   };
 
-  changeValue = (item: string) => {
-    this.setState({
-      value: item,
-    });
-  };
-
   render(): ReactNode {
     return (
       <div className="search_container">
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            this.getNewData(this.state.value);
-          }}
-        >
+        <form>
           <input
             className="input"
             type="text"
             onChange={(event) => {
-              this.changeValue(event.target.value);
+              this.setState({
+                value: event.target.value,
+              });
             }}
           />
-          <button type="submit" className="btn">
+          <button
+            type="button"
+            className="btn"
+            onClick={() => this.getNewData(this.state.value)}
+          >
             Search
           </button>
         </form>
