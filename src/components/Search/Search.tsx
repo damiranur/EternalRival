@@ -30,7 +30,8 @@ class Search extends Component<Props> {
       <div className="search_container">
         <form>
           <input
-            className="input"
+            className="input form-control me-sm-2"
+            placeholder="Search"
             type="text"
             onChange={(event) => {
               this.setState({
@@ -40,7 +41,7 @@ class Search extends Component<Props> {
           />
           <button
             type="button"
-            className="btn"
+            className="btn btn-success"
             onClick={() => this.getNewData(this.state.value)}
           >
             Search

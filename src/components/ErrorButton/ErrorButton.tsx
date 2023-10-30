@@ -27,7 +27,7 @@ class ErrorButton extends Component<object, IError> {
       throw Error('This is ERROR');
     }
     return (
-      <button className="error_btn" onClick={this.throwError}>
+      <button className="error_btn btn btn-danger" onClick={this.throwError}>
         {this.state.messages}
       </button>
     );

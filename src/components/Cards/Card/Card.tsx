@@ -9,12 +9,12 @@ type Props = {
 class People extends Component<Props> {
   render(): ReactNode {
     return (
-      <div className="people_wrapper">
+      <div className="people_wrapper alert alert-dismissible alert-info">
         <p>
-          <strong>{this.props.people.name}</strong>
+          <strong> {this.props.people.name}</strong>
         </p>
-        <p>{this.props.people.height}</p>
-        <p>{this.props.people.mass}</p>
+        <p>Height: {this.props.people.height} cm</p>
+        <p>Mass: {this.props.people.mass} kg</p>
       </div>
     );
   }

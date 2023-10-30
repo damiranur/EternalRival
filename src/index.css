@@ -1,3 +1,10 @@
+@import '../node_modules/bootswatch/dist/sketchy/bootstrap.min.css';
+/* @import '../node_modules/bootswatch/dist/sketchy/bootstrap.min.css.map'; */
+/* @import '../node_modules/bootswatch/dist/sketchy/bootstrap.css'; */
+#root {
+  padding: 15px;
+}
+
 .container {
   display: flex;
   flex-direction: column;

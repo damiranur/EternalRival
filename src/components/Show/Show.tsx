@@ -10,7 +10,7 @@ type Props = {
 class Show extends Component<Props> {
   render(): ReactNode {
     return (
-      <div className="show_container">
+      <div className="show_container alert alert-dismissible alert-warning">
         <Cards data={this.props.data} />
       </div>
     );
