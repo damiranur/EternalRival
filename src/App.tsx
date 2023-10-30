@@ -28,7 +28,7 @@ class App extends Component {
 
     fetchCharacters(this.state.searchTerm)
       .then((data: ApiCharactersData) => {
-        this.setState({ characters: data.results, isLoading: false });
+        this.setState({ characters: data?.results, isLoading: false });
       })
       .catch(() => {
         this.setState({ characters: [], isLoading: false });

@@ -9,10 +9,17 @@ export const fetchCharacters = async (searchTerm: string) => {
 
   try {
     const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error('Something went wrong');
+    }
+
     const data: ApiCharactersData = await response.json();
     return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error);
+      throw error;
+    }
   }
 };

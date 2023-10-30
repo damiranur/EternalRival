@@ -31,7 +31,7 @@ export interface IErrorBoundaryState {
   hasError: boolean;
 }
 
-export type ApiCharactersData = { results: ICharacter[] };
+export type ApiCharactersData = { results: ICharacter[] } | undefined;
 
 export interface ICharactersListProps {
   characters: ICharacter[];
