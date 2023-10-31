@@ -1,33 +1,31 @@
-import { ChangeEvent, Component } from 'react';
-import SearchInput from './searchInput';
+import { useContext, useState } from 'react';
 import NavigationButtons from './navigationButtons';
-import { HeaderProps } from '../../interfaces';
+import handleSearch from '../../services/handleSearch';
+import myContext from '../../services/myContext';
 
-class Header extends Component<NonNullable<unknown>, { inputValue: string }> {
-  constructor(props: HeaderProps) {
-    super(props);
-    this.state = {
-      inputValue: localStorage.getItem('term') || '',
-    };
-  }
+function Header() {
+  const { setCharactersData, setIsLoading } = useContext(myContext);
+  const [inputValue, setInputValue] = useState(
+    localStorage.getItem('term') || ''
+  );
 
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target) {
-      this.setState({ inputValue: e.target.value });
-    }
-  };
-
-  render() {
-    return (
-      <header>
-        <SearchInput
-          value={this.state.inputValue}
-          onChange={this.handleInputChange}
-        />
-        <NavigationButtons text={this.state.inputValue} />
-      </header>
-    );
-  }
+  return (
+    <header>
+      <input
+        className={'search-input'}
+        type="text"
+        placeholder="Enter your search query"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch(setIsLoading, setCharactersData, inputValue);
+          }
+        }}
+      />
+      <NavigationButtons text={inputValue} />
+    </header>
+  );
 }
 
 export default Header;

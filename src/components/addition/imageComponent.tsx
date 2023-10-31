@@ -1,49 +1,27 @@
-import { Component } from 'react';
-import { ImageComponentProps, ImageComponentState } from '../../interfaces';
+import { useState } from 'react';
+import { ImageComponentProps } from '../../interfaces';
 
-class ImageComponent extends Component<
-  ImageComponentProps,
-  ImageComponentState
-> {
-  constructor(props: ImageComponentProps) {
-    super(props);
+function ImageComponent({ src, alt }: ImageComponentProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-    this.state = {
-      imageLoaded: false,
-    };
-  }
+  return (
+    <div>
+      {imageLoaded ? (
+        <img src={src} alt={alt} />
+      ) : (
+        <img className="loader" src="/src/assets/loading.gif" alt="loader" />
+      )}
 
-  handleImageLoad = () => {
-    this.setState({ imageLoaded: true });
-  };
-
-  render() {
-    const { src, alt } = this.props;
-    const { imageLoaded } = this.state;
-
-    return (
-      <div>
-        {imageLoaded ? (
-          <img src={src} alt={alt} />
-        ) : (
-          <img
-            className={'loader'}
-            src="/src/assets/loading.gif"
-            alt="loader"
-          />
-        )}
-
-        {imageLoaded || (
-          <img
-            src={src}
-            alt={alt}
-            style={{ display: 'none' }}
-            onLoad={this.handleImageLoad}
-          />
-        )}
-      </div>
-    );
-  }
+      {imageLoaded || (
+        <img
+          src={src}
+          alt={alt}
+          style={{ display: 'none' }}
+          onLoad={() => setImageLoaded(true)}
+        />
+      )}
+    </div>
+  );
 }
 
 export default ImageComponent;

@@ -1,41 +1,36 @@
-import React, { Component } from 'react';
-import { CharacterData, SearchButtonProps } from '../../interfaces';
+import React, { useContext, useEffect } from 'react';
+import { SearchButtonProps } from '../../interfaces';
 import myContext from '../../services/myContext';
-import MyContext from '../../services/myContext';
-import getCharacters from '../../services/getCharacters';
+import handleSearch from '../../services/handleSearch';
 
-class NavigationButtons extends Component<SearchButtonProps> {
-  static contextType = myContext;
-  declare context: React.ContextType<typeof MyContext>;
+function NavigationButtons({ text }: SearchButtonProps) {
+  const { setCharactersData, setIsLoading } = useContext(myContext);
 
-  componentDidMount() {
-    this.handleSearch();
-  }
+  const hasMounted = React.useRef(false);
+  useEffect(() => {
+    if (!hasMounted.current) {
+      handleSearch(setIsLoading, setCharactersData, text);
+      hasMounted.current = true;
+    }
+  }, [setCharactersData, setIsLoading, text]);
 
-  getError = () => {
-    this.context.updateQuery(null);
+  const getError = () => {
+    setCharactersData(null);
   };
 
-  handleSearch = async () => {
-    this.context.updateLoader(true);
-    const newState: CharacterData[] = await getCharacters(this.props.text);
-    this.context.updateLoader(false);
-    this.context.updateQuery(newState);
-    localStorage.setItem('term', this.props.text);
-  };
-
-  render() {
-    return (
-      <>
-        <button className={'header-button'} onClick={this.handleSearch}>
-          Search
-        </button>
-        <button className={'header-button'} onClick={this.getError}>
-          Get an error
-        </button>
-      </>
-    );
-  }
+  return (
+    <>
+      <button
+        className={'header-button'}
+        onClick={() => handleSearch(setIsLoading, setCharactersData, text)}
+      >
+        Search
+      </button>
+      <button className={'header-button'} onClick={getError}>
+        Get an error
+      </button>
+    </>
+  );
 }
 
 export default NavigationButtons;

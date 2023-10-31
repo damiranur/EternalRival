@@ -1,16 +1,11 @@
 import React from 'react';
-import { CharacterData } from '../interfaces';
+import { DataState } from '../interfaces';
 import getCharacters from './getCharacters';
 
-const MyContext = React.createContext<{
-  charactersData: CharacterData[] | null;
-  updateQuery: (data: CharacterData[] | null) => void;
-  updateLoader: (isLoading: boolean) => void;
-  isLoading: boolean;
-}>({
+const MyContext = React.createContext<DataState>({
   charactersData: await getCharacters(localStorage.getItem('term') || ''),
-  updateQuery: () => {},
-  updateLoader: () => {},
+  setCharactersData: () => {},
+  setIsLoading: () => {},
   isLoading: false,
 });
 

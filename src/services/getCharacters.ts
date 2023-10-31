@@ -4,7 +4,12 @@ async function getCharacters(name: string) {
   name = name.trim().toLowerCase();
   try {
     const response = await axios.get(
-      `https://rickandmortyapi.com/api/character/?name=${name}`
+      `https://rickandmortyapi.com/api/character/?name=${name}`,
+      {
+        params: {
+          name: name,
+        },
+      }
     );
     return response.data.results;
   } catch (e) {

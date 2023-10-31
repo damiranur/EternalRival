@@ -1,28 +1,7 @@
-import { ChangeEvent, ReactNode } from 'react';
-
-export interface HeaderProps {
-  inputValue: string;
-}
-
-export interface SearchInputProps {
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+import React, { ReactNode } from 'react';
 
 export interface SearchButtonProps {
   text: string;
-}
-
-export interface PokemonData {
-  name: string;
-  effect_entries: [
-    {
-      effect: string;
-    },
-    {
-      effect: string;
-    },
-  ];
 }
 
 export interface CharacterData {
@@ -54,6 +33,11 @@ export interface ImageComponentProps {
   alt: string;
 }
 
-export interface ImageComponentState {
-  imageLoaded: boolean;
+export interface DataState {
+  charactersData: CharacterData[] | null;
+  setCharactersData: React.Dispatch<
+    React.SetStateAction<CharacterData[] | null>
+  >;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean;
 }

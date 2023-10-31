@@ -1,47 +1,30 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Header from './components/header/header';
 import MainSection from './components/body/mainSection';
-import { CharacterData } from './interfaces';
+import { CharacterData, DataState } from './interfaces';
 import MyContext from './services/myContext';
 import ErrorBoundary from './components/addition/errorBoundary';
 
-class App extends Component {
-  updateQuery = (charactersData: CharacterData[] | null) => {
-    this.setState({
-      charactersData: charactersData || null,
-      updateQuery: this.updateQuery,
-    });
+function App() {
+  const [charactersData, setCharactersData] = useState<CharacterData[] | null>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const state: DataState = {
+    charactersData,
+    setCharactersData,
+    setIsLoading,
+    isLoading,
   };
 
-  updateLoader = (isLoading: boolean) => {
-    this.setState({
-      isLoading: isLoading,
-    });
-  };
-
-  state = {
-    charactersData: [],
-    updateQuery: this.updateQuery,
-    isLoading: false,
-  };
-
-  render() {
-    return (
-      <MyContext.Provider
-        value={{
-          charactersData: this.state.charactersData,
-          updateQuery: this.state.updateQuery,
-          updateLoader: this.updateLoader,
-          isLoading: this.state.isLoading,
-        }}
-      >
-        <ErrorBoundary>
-          <Header />
-          <MainSection />
-        </ErrorBoundary>
-      </MyContext.Provider>
-    );
-  }
+  return (
+    <MyContext.Provider value={state}>
+      <ErrorBoundary>
+        <Header />
+        <MainSection />
+      </ErrorBoundary>
+    </MyContext.Provider>
+  );
 }
 
 export default App;
