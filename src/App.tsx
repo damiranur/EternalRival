@@ -23,7 +23,7 @@ class App extends Component {
     }
   }
 
-  fetchCharactersData = () => {
+  fetchCharactersData: () => void = () => {
     this.setState({ isLoading: true });
 
     fetchCharacters(this.state.searchTerm)
