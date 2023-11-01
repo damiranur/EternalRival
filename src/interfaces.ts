@@ -4,20 +4,35 @@ export interface SearchButtonProps {
   text: string;
 }
 
-export interface CharacterData {
-  name: string;
+export interface ProductData {
+  name: {
+    en: string;
+  };
   species: string;
   status: string;
   location: {
     name: string;
   };
   episode: string[];
-  image: string;
-  gender: string;
+  masterVariant: {
+    images: [
+      {
+        url: string;
+      },
+    ];
+    prices: [
+      {
+        value: {
+          centAmount: number;
+        };
+      },
+    ];
+    gender: string;
+  };
 }
 
-export interface ChracterCardProps {
-  data: CharacterData | null;
+export interface ProductCardProps {
+  data: ProductData | null;
 }
 
 export interface ErrorBoundaryProps {
@@ -34,10 +49,22 @@ export interface ImageComponentProps {
 }
 
 export interface DataState {
-  charactersData: CharacterData[] | null;
-  setCharactersData: React.Dispatch<
-    React.SetStateAction<CharacterData[] | null>
-  >;
+  productsData: ProductData[] | null;
+  setCharactersData: React.Dispatch<React.SetStateAction<ProductData[] | null>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
+}
+
+export interface ResponseError {
+  response: {
+    data: {
+      statusCode: number;
+    };
+  };
+}
+
+export interface AxiosResponse {
+  data: {
+    access_token: string;
+  };
 }

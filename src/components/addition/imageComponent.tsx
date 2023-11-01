@@ -7,7 +7,7 @@ function ImageComponent({ src, alt }: ImageComponentProps) {
   return (
     <div>
       {imageLoaded ? (
-        <img src={src} alt={alt} />
+        <img src={src} alt={alt} className={'product-image'} />
       ) : (
         <img className="loader" src="/src/assets/loading.gif" alt="loader" />
       )}

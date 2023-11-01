@@ -1,18 +1,16 @@
-import { CharacterData } from '../interfaces';
-import getCharacters from './getCharacters';
+import { ProductData } from '../interfaces';
 import React from 'react';
+import { getProductsList } from './getProductList';
 
 const handleSearch = async (
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setCharactersData: React.Dispatch<
-    React.SetStateAction<CharacterData[] | null>
-  >,
+  setProductsData: React.Dispatch<React.SetStateAction<ProductData[] | null>>,
   text: string
 ) => {
   setIsLoading(true);
-  const newState: CharacterData[] = await getCharacters(text);
+  const newState: ProductData[] = await getProductsList(text);
   setIsLoading(false);
-  setCharactersData(newState);
+  setProductsData(newState);
   localStorage.setItem('term', text);
 };
 

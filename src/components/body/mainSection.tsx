@@ -1,18 +1,18 @@
 import React, { useContext } from 'react';
-import CharacterCard from './characterCard';
+import ProductCard from './productCard';
 import MyContext from '../../services/myContext';
-import { CharacterData } from '../../interfaces';
+import { ProductData } from '../../interfaces';
 
 function MainSection() {
-  const { charactersData, isLoading } = useContext(MyContext);
-  const isCardsExist = charactersData!.length !== 0;
+  const { productsData, isLoading } = useContext(MyContext);
+  const isCardsExist = productsData!.length !== 0;
 
   let content;
   if (isLoading) {
     content = <img src="/src/assets/loading.gif" alt="loader"></img>;
   } else if (isCardsExist) {
-    content = charactersData!.map((character: CharacterData, index: number) => (
-      <CharacterCard key={index} data={character} />
+    content = productsData!.map((character: ProductData, index: number) => (
+      <ProductCard key={index} data={character} />
     ));
   } else {
     content = <h1>Oops! Character does not found</h1>;
