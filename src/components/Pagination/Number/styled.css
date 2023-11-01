@@ -1,0 +1,8 @@
+.number_container {
+  cursor: pointer;
+  width: 30px;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid gray;
+  border-radius: 8px;
+}

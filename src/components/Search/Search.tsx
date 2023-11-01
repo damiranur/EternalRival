@@ -14,8 +14,8 @@ function Search({ setData, setLoader }: Props) {
     setLoader(true);
     getData(value)
       .then((res) => {
-        localStorage.setItem('data', JSON.stringify(res));
-        setData(res);
+        localStorage.setItem('data', JSON.stringify(res.result));
+        setData(res.result);
         setLoader(false);
       })
       .catch((e: Error) => {

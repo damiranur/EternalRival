@@ -1,8 +1,11 @@
 @import '../node_modules/bootswatch/dist/sketchy/bootstrap.min.css';
-/* @import '../node_modules/bootswatch/dist/sketchy/bootstrap.min.css.map'; */
-/* @import '../node_modules/bootswatch/dist/sketchy/bootstrap.css'; */
+
 #root {
   padding: 15px;
+}
+
+p {
+  margin: 0;
 }
 
 .container {

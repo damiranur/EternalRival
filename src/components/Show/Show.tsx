@@ -1,4 +1,3 @@
-// import { Component, ReactNode } from 'react';
 import './styled.css';
 import Cards from '../Cards/Cards';
 import { IPerson } from '../../models/interface';
