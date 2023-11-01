@@ -1,9 +1,9 @@
-import { IPeople } from '../models/interface';
+import { IPerson } from '../models/interface';
 
 const url = 'https://swapi.dev/api/people';
 
 export async function getData(urlParams: string | number) {
-  const response: IPeople[] = await fetch(
+  const response: IPerson[] = await fetch(
     `${url}${
       typeof urlParams != 'string'
         ? `?page=${urlParams}`

@@ -1,4 +1,6 @@
-export interface IPeople {
+import { ReactNode } from 'react';
+
+export interface IPerson {
   name: string;
   height: string;
   skin_color: string;
@@ -6,12 +8,6 @@ export interface IPeople {
   mass: string;
 }
 
-export interface IData {
-  data: IPeople[];
-  loader: boolean;
-}
-
-export interface IError {
-  error: boolean;
-  messages: string;
+export interface ErrorProps {
+  children?: ReactNode;
 }

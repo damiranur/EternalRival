@@ -1,49 +1,47 @@
-import { Component, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import Search from './components/Search/Search';
 import Show from './components/Show/Show';
-import { IData, IPeople } from './models/interface';
+import { IPerson } from './models/interface';
 import ErrorButton from './components/ErrorButton/ErrorButton';
 import { getData } from './api/data';
 
-class App extends Component {
-  state: IData = {
-    data: [],
-    loader: false,
+function App() {
+  const [data, setData] = useState<IPerson[]>([]);
+  const [loader, setLoader] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoader(true);
+    const localStorageData = localStorage.getItem('data');
+    if (localStorageData) {
+      const data = JSON.parse(localStorageData);
+      setTimeout(() => {
+        setData(data);
+        setLoader(false);
+      }, 1000);
+    }
+    getData(1)
+      .then((res) => {
+        setData(res);
+        setLoader(false);
+      })
+      .catch((e: Error) => console.error('Error fetching data:', e.message));
+  }, []);
+
+  const updateData = (newData: IPerson[]) => {
+    setData(newData);
   };
 
-  async componentDidMount(): Promise<void> {
-    this.setState({ loader: true });
-    const checkData = localStorage.getItem('data');
-    if (checkData) {
-      const data = JSON.parse(checkData);
-      setTimeout(() => this.setState({ data: data, loader: false }), 1000);
-      return;
-    }
-    const get_data = await getData(1);
-    try {
-      this.setState({ data: get_data });
-      this.setState({ loader: false });
-    } catch (e) {
-      console.error('Error fetching data:', e);
-    }
-  }
-
-  updateData = (newData: IPeople[]) => {
-    this.setState({ data: newData });
+  const updateLoader = (value: boolean) => {
+    setLoader(value);
   };
 
-  render(): ReactNode {
-    return (
-      <div className="container">
-        <Search
-          updateData={this.updateData}
-          loader={(value) => this.setState({ loader: value })}
-        />
-        <ErrorButton />
-        <Show data={this.state} />
-      </div>
-    );
-  }
+  return (
+    <div className="container">
+      <Search setData={updateData} setLoader={updateLoader} />
+      <ErrorButton />
+      <Show data={data} loader={loader} />
+    </div>
+  );
 }
 
 export default App;

@@ -1,20 +1,19 @@
-import { Component, ReactNode } from 'react';
+// import { Component, ReactNode } from 'react';
 import './styled.css';
 import Cards from '../Cards/Cards';
-import { IData } from '../../models/interface';
+import { IPerson } from '../../models/interface';
 
 type Props = {
-  data: IData;
+  data: IPerson[];
+  loader: boolean;
 };
 
-class Show extends Component<Props> {
-  render(): ReactNode {
-    return (
-      <div className="show_container alert alert-dismissible alert-warning">
-        <Cards data={this.props.data} />
-      </div>
-    );
-  }
+function Show({ data, loader }: Props) {
+  return (
+    <div className="show_container alert alert-dismissible alert-warning">
+      <Cards data={data} loader={loader} />
+    </div>
+  );
 }
 
 export default Show;

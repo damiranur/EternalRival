@@ -1,8 +1,5 @@
 import { Component, ReactNode } from 'react';
-
-interface ErrorProps {
-  children?: ReactNode;
-}
+import { ErrorProps } from '../../models/interface';
 
 type ErrorState = {
   hasError: boolean;
