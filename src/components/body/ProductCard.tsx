@@ -1,12 +1,19 @@
 import React from 'react';
-import { ProductData, ProductCardProps } from '../../interfaces';
-import ImageComponent from '../addition/imageComponent';
+import { ProductCardProps, ProductData } from '../../interfaces';
+import ImageComponent from '../addition/ImageComponent';
+import { useNavigate } from 'react-router-dom';
 
 function ProductCard(props: ProductCardProps) {
+  const setSelectedItemName = props.setSelectedItemName;
+  const navigate = useNavigate();
   const data: ProductData | null = props.data;
   if (!data) return;
+  function openCard() {
+    navigate(`/${data!.name.en}`);
+    setSelectedItemName(data!.name.en);
+  }
   return (
-    <div className={'product-card'}>
+    <div className={'product-card'} onClick={openCard}>
       <ImageComponent
         src={data.masterVariant.images[0].url}
         alt={data.name + ' photo'}

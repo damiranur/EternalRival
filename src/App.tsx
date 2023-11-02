@@ -1,15 +1,16 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Posts from './pages/posts';
-import NotFound from './pages/NotFound';
+import { Route, Routes, Outlet } from 'react-router-dom';
+import Posts from './pages/Posts';
+import DetailedProductPage from './pages/DetailedProductPage';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Posts />}>
+        <Route path=":page/:productName" element={<Outlet />}>
+          <Route index element={<DetailedProductPage />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 

@@ -1,17 +1,25 @@
-import { ProductData } from '../interfaces';
-import React from 'react';
+import { SearchParams } from '../interfaces';
 import { getProductsList } from './getProductList';
 
-const handleSearch = async (
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setProductsData: React.Dispatch<React.SetStateAction<ProductData[] | null>>,
-  text: string
-) => {
+const handleSearch = async (params: SearchParams) => {
+  const {
+    setIsLoading,
+    setProductsData,
+    inputValue,
+    limit,
+    setTotalProducts,
+    page,
+  } = params;
+
   setIsLoading(true);
-  const newState: ProductData[] = await getProductsList(text);
-  setIsLoading(false);
-  setProductsData(newState);
-  localStorage.setItem('term', text);
+  try {
+    const newState = await getProductsList(inputValue, limit, page);
+    setTotalProducts(newState.total);
+    setProductsData(newState.results);
+    localStorage.setItem('term', inputValue);
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 export default handleSearch;

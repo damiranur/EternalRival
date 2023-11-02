@@ -1,19 +1,14 @@
 import React, { ReactNode } from 'react';
 
 export interface SearchButtonProps {
-  text: string;
+  inputValue: string;
+  limit: number;
 }
 
 export interface ProductData {
   name: {
     en: string;
   };
-  species: string;
-  status: string;
-  location: {
-    name: string;
-  };
-  episode: string[];
   masterVariant: {
     images: [
       {
@@ -27,12 +22,11 @@ export interface ProductData {
         };
       },
     ];
-    gender: string;
   };
 }
-
 export interface ProductCardProps {
   data: ProductData | null;
+  setSelectedItemName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface ErrorBoundaryProps {
@@ -50,9 +44,18 @@ export interface ImageComponentProps {
 
 export interface DataState {
   productsData: ProductData[] | null;
-  setCharactersData: React.Dispatch<React.SetStateAction<ProductData[] | null>>;
+  setProductsData: React.Dispatch<React.SetStateAction<ProductData[] | null>>;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
+  totalProducts: number;
+  setTotalProducts: React.Dispatch<React.SetStateAction<number>>;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
+  limit: number;
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  totalPages: number;
+  page: string;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface ResponseError {
@@ -67,4 +70,13 @@ export interface AxiosResponse {
   data: {
     access_token: string;
   };
+}
+
+export interface SearchParams {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setProductsData: React.Dispatch<React.SetStateAction<ProductData[] | null>>;
+  inputValue: string;
+  limit: number;
+  setTotalProducts: React.Dispatch<React.SetStateAction<number>>;
+  page?: string;
 }
