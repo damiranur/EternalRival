@@ -1,0 +1,9 @@
+.show_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 10px;
+}

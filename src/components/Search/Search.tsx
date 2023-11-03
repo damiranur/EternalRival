@@ -1,26 +1,24 @@
 import { useState } from 'react';
 import './styled.css';
 import { getData } from '../../api/data';
-import { IPerson } from '../../models/interface';
+import { Link } from 'react-router-dom';
 
-type Props = {
+/* type Props = {
   setData: ([]: IPerson[]) => void;
   setLoader: (value: boolean) => void;
-};
+}; */
 
-function Search({ setData, setLoader }: Props) {
+function Search() {
   const [inputValue, setInputValue] = useState<string>('');
   const getNewData = (value: string) => {
     setLoader(true);
     getData(value)
       .then((res) => {
-        localStorage.setItem('data', JSON.stringify(res.result));
-        setData(res.result);
+        localStorage.setItem('results', JSON.stringify(res.results));
+        setData(res.results);
         setLoader(false);
       })
-      .catch((e: Error) => {
-        console.error('Error fetching data:', e.message);
-      });
+      .catch((e: Error) => console.error('Error fetching data:', e.message));
   };
 
   return (
@@ -34,13 +32,15 @@ function Search({ setData, setLoader }: Props) {
             setInputValue(event.target.value);
           }}
         />
-        <button
-          type="button"
-          className="btn btn-success"
-          onClick={() => getNewData(inputValue)}
-        >
-          Search
-        </button>
+        <Link to={`/people/?search=${inputValue.toLowerCase()}`}>
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => getNewData(inputValue)}
+          >
+            Search
+          </button>
+        </Link>
       </form>
     </div>
   );
