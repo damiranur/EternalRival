@@ -6,12 +6,14 @@ import MyContext from '../services/myContext';
 import ErrorBoundary from '../components/addition/ErrorBoundary';
 import { setAnonymousToken } from '../services/getToken';
 import getPagesCount from '../services/getPagesCount';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 function Posts() {
+  useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const currentPage = searchParams.get('page');
+  const currentProduct = searchParams.get('product');
 
   useEffect(() => {
     async function fetchData() {
@@ -23,6 +25,7 @@ function Posts() {
   }, []);
 
   const [page, setPage] = useState(currentPage || '1');
+  const [product, setProduct] = useState(currentProduct);
   const [totalPages, setTotalPages] = useState(0);
   const [productsData, setProductsData] = useState<ProductData[] | null>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +48,8 @@ function Posts() {
     totalPages,
     page,
     setPage,
+    product,
+    setProduct,
   };
 
   useEffect(() => {
@@ -54,6 +59,7 @@ function Posts() {
   return (
     <MyContext.Provider value={state}>
       <ErrorBoundary>
+        <Outlet />
         <Header />
         <MainSection />
       </ErrorBoundary>

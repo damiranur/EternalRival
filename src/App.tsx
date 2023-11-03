@@ -1,4 +1,4 @@
-import { Route, Routes, Outlet } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Posts from './pages/Posts';
 import DetailedProductPage from './pages/DetailedProductPage';
 
@@ -6,9 +6,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Posts />}>
-        <Route path=":page/:productName" element={<Outlet />}>
-          <Route index element={<DetailedProductPage />} />
-        </Route>
+        <Route path="/:details" element={<DetailedProductPage />} />
       </Route>
     </Routes>
   );

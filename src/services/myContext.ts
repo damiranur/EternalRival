@@ -15,6 +15,8 @@ const MyContext = React.createContext<DataState>({
   setTotalProducts: () => {},
   page: '1',
   setPage: () => {},
+  product: '',
+  setProduct: () => {},
 });
 
 export default MyContext;

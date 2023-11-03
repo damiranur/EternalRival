@@ -16,6 +16,7 @@ function Pagination() {
     totalPages,
     page,
     setPage,
+    product,
   } = useContext(MyContext);
 
   const [isInitialLoad, setIsInitialLoad] = useState(true);
@@ -30,7 +31,9 @@ function Pagination() {
         setTotalProducts,
         page,
       });
-      navigate(`?page=${page}`);
+      product
+        ? navigate(`?page=${page}&product=${product}`)
+        : navigate(`?page=${page}`);
     }
   }, [page, isInitialLoad]);
 

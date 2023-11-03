@@ -14,6 +14,9 @@ export interface ProductData {
       {
         url: string;
       },
+      {
+        url: string;
+      },
     ];
     prices: [
       {
@@ -23,10 +26,17 @@ export interface ProductData {
       },
     ];
   };
+  description: {
+    en: string;
+  };
+}
+
+export interface ProductList {
+  results: ProductData[];
+  total: number;
 }
 export interface ProductCardProps {
   data: ProductData | null;
-  setSelectedItemName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface ErrorBoundaryProps {
@@ -56,14 +66,8 @@ export interface DataState {
   totalPages: number;
   page: string;
   setPage: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export interface ResponseError {
-  response: {
-    data: {
-      statusCode: number;
-    };
-  };
+  product: string | null;
+  setProduct: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface AxiosResponse {

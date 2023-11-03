@@ -79,6 +79,7 @@ header {
 .loader {
   display: block;
   width: 300px;
+  margin: 0 auto;
 }
 
 .product-image {
@@ -117,7 +118,38 @@ header {
 
 .product-page {
   margin-left: auto;
+  padding: 20px;
   width: 50%;
   height: 100%;
-  background-color: rgba(0,0,0,0.51);
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.detailed-product-title {
+  font-size: 48px;
+  margin: 0 auto 20px;
+  color: white;
+  text-align: center;
+}
+
+.detailed-product-close {
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.detailed-product-image {
+  display: block;
+  width: 400px;
+}
+
+.detailed-images-block {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.detailed-product-info {
+  color: white;
+  font-size: 24px;
 }
