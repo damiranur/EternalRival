@@ -1,44 +1,47 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import CardItem from '../CardItem/cardItem';
-import { ResultItem } from '../models/search.model';
+import Loader from '../loader/loader';
+import { ResultItem, SearchResult } from '../models/search.model';
 import './main.css';
 
 interface PropsType {
-  list: ResultItem[];
+  search: string;
 }
 
 interface StateType {
-  error: boolean;
+  loading: boolean;
+  results: ResultItem[];
 }
 
-export default class Main extends React.Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props);
-    this.state = {
-      error: false,
-    };
-  }
+export default function Main(props: PropsType) {
+  const [state, setState] = useState<StateType>({
+    loading: false,
+    results: [],
+  });
 
-  emitError() {
-    this.setState({ ...this.state, error: true });
-  }
+  useEffect(() => {
+    setState((prevState) => ({ ...prevState, loading: true }));
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=9999')
+      .then((response) => response.json())
+      .then((response: SearchResult) => {
+        const result = response.results
+          .filter((v) => v.name.includes(props.search))
+          .slice(0, 50);
+        setTimeout(() => {
+          setState((prevState) => ({ ...prevState, results: result, loading: false }));
+        }, 500);
+      })
+      .catch(() => setState((prevState) => ({ ...prevState, loading: true })));
+  }, [props.search]);
 
-  render() {
-    if (this.state.error) {
-      throw new Error('Test Error');
-    }
-
-    return (
+  return (
+    <>
+      {state.loading && <Loader />}
       <main className="main">
-        {this.props.list.map((i) => {
+        {state.results.map((i) => {
           return <CardItem key={i.name + i.url} item={i} />;
         })}
-        <div className="button-container">
-          <button onClick={this.emitError.bind(this)}>
-            Test Error Boundary
-          </button>
-        </div>
       </main>
-    );
-  }
+    </>
+  );
 }

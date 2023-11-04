@@ -1,41 +1,39 @@
-import React from 'react';
+import { useRef } from 'react';
 import './header.css';
 
-interface propsType {
+interface PropsType {
   defaultValue: string;
-  changeSearchEvent: (value: string) => void;
-  clickSearchEvent: () => void;
+  searchItem: (value: string) => void;
 }
 
-export default class Header extends React.Component<propsType> {
-  keyUpHandler(event: EventTarget) {
-    const el = event as HTMLInputElement;
-    this.props.changeSearchEvent(el.value);
+export default function Header(props: PropsType) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const searchItemHandler = () => {
+    props.searchItem(inputRef.current!.value);
   }
 
-  render() {
-    return (
-      <header className="header">
-        <h2>Pokemon</h2>
-        <div className="text-field-container">
-          <span className="text-field">
-            <input
-              defaultValue={this.props.defaultValue}
-              onKeyUp={(e) => this.keyUpHandler(e.target)}
-              id="search-input"
-              type="text"
-              required
-            />
-            <label htmlFor="search-input">Search</label>
-          </span>
-          <button
-            className="button-icon-search"
-            onClick={this.props.clickSearchEvent}
-          >
-            <img src="./search-icon.svg" alt="search icon" />
-          </button>
-        </div>
-      </header>
-    );
-  }
+  return (
+    <header className="header">
+      <h2>Pokemon</h2>
+      <div className="text-field-container">
+        <span className="text-field">
+          <input
+            ref={inputRef}
+            defaultValue={props.defaultValue}
+            id="search-input"
+            type="text"
+            required
+          />
+          <label htmlFor="search-input">Search</label>
+        </span>
+        <button
+          className="button-icon-search"
+          onClick={searchItemHandler}
+        >
+          <img src="./search-icon.svg" alt="search icon" />
+        </button>
+      </div>
+    </header>
+  );
 }

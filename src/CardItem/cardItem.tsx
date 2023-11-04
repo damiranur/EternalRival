@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { ResultItem } from '../models/search.model';
 import { PokemonDescription, StatType } from '../models/pokemon.model';
 import './cardItem.css';
@@ -12,52 +12,43 @@ interface StateType {
   stats: StatType[];
 }
 
-export default class CardItem extends React.Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props);
+export default function CardItem(props: PropsType) {
+  const [state, setState] = useState<StateType>({
+    img: '',
+    stats: [],
+  });
 
-    this.state = {
-      img: '',
-      stats: [],
-    };
-  }
 
-  componentDidMount() {
-    this.setData();
-  }
+  useEffect(() => {
+    fetch(props.item.url)
+    .then((response) => response.json())
+    .then((response: PokemonDescription) => {
+      setState((prevState) => ({
+        ...prevState,
+        img: response.sprites.other['official-artwork'].front_default,
+        stats: response.stats,
+      }));
+    });
+  }, [props.item.url]);
 
-  setData() {
-    fetch(this.props.item.url)
-      .then((response) => response.json())
-      .then((response: PokemonDescription) => {
-        this.setState({
-          ...this.state,
-          img: response.sprites.other['official-artwork'].front_default,
-          stats: response.stats,
-        });
-      });
-  }
-
-  render() {
-    return (
-      <div
-        className="card-pokemon"
-        key={this.props.item.name + this.props.item.url}
-      >
-        <img src={this.state.img} alt={this.props.item.name} />
-        <div>
-          <span>{this.props.item.name}</span>
-          <div className="pokemon-stats">
-            {this.state.stats.map((i) => {
-              return (
-                <span key={i.stat.url}>
-                  {i.stat.name}: {i.base_stat}
-                </span>
-              );
-            })}
-          </div>
+  return (
+    <div
+      className="card-pokemon"
+      key={props.item.name + props.item.url}
+    >
+      <img src={state.img} alt={props.item.name} />
+      <div>
+        <span>{props.item.name}</span>
+        <div className="pokemon-stats">
+          {state.stats.map((i) => {
+            return (
+              <span key={i.stat.url}>
+                {i.stat.name}: {i.base_stat}
+              </span>
+            );
+          })}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
