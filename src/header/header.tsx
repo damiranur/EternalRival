@@ -29,7 +29,7 @@ export default function Header() {
           className="button-icon-search"
           onClick={searchItemHandler}
         >
-          <img src="./search-icon.svg" alt="search icon" />
+          <img src="/search-icon.svg" alt="search icon" />
         </button>
       </div>
     </header>

@@ -1,4 +1,9 @@
 export interface PokemonDescription {
+  id: number;
+  name: string;
+  base_experience: number;
+  weight: number;
+  height: number;
   sprites: {
     other: {
       ['official-artwork']: {

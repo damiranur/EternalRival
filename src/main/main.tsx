@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import CardItem from "../CardItem/cardItem";
 import Loader from "../loader/loader";
 import Pagination from "../Pagination/pagination";
@@ -45,21 +45,23 @@ export default function Main() {
         }, 500);
       })
       .catch(() => setState((prevState) => ({ ...prevState, loading: true })));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.search, location.search]);
+  }, [params.search, currentPage]);
 
   return (
     <>
       {state.loading && <Loader />}
       <main className="main">
-        {state.results.map((i) => {
-          return <CardItem key={i.name + i.url} item={i} />
-        })}
-        {
-          state.results.length !== 0 && (
-            <Pagination search={search} countPage={countPage} />
-          )
-        }
+        <div className="list-item">
+          {state.results.map((i) => {
+            return <CardItem key={i.name + i.url} item={i} />
+          })}
+          {
+            state.results.length !== 0 && (
+              <Pagination search={search} countPage={countPage} />
+            )
+          }
+        </div>
+        <Outlet />
       </main>
     </>
   );
