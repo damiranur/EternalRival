@@ -10,6 +10,7 @@ const handleSearch = async (params: SearchParams) => {
     setTotalProducts,
     page,
   } = params;
+  console.log('handle page');
 
   setIsLoading(true);
   try {

@@ -26,6 +26,7 @@ function Header() {
       inputValue,
       limit,
       setTotalProducts,
+      page,
     });
     let currentPage: string;
     if (isToFirstPage || isSelectCall) {
