@@ -9,12 +9,12 @@ import { fetchReleases } from './services/apiService';
 import styles from './App.module.scss';
 
 const App = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const [perPage, setPerPage] = useState(6);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [searchTerm, setSearchTerm] = useState<string>(
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(
     localStorage.getItem(LOCAL_STORAGE_SEARCH_TERM) || ''
   );
   const [releases, setReleases] = useState<Release[]>([]);
@@ -31,7 +31,11 @@ const App = () => {
       setCurrentPage(pagination.page);
       setTotalPages(pagination.pages);
       setPerPage(pagination.per_page);
-      setSearchParams({ page: String(pagination.page) });
+      setSearchParams({
+        q: searchTerm,
+        page: String(pagination.page),
+        per_page: String(pagination.per_page),
+      });
     } catch (error) {
       setReleases([]);
       console.error(error);
@@ -42,13 +46,12 @@ const App = () => {
 
   useEffect(() => {
     getReleases();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, currentPage, perPage]);
 
   return (
     <div className={styles.container}>
-      <Header setSearchTerm={setSearchTerm} searchParams={searchParams} />
-      {!isLoading && !releases.length ? (
+      <Header setSearchTerm={setSearchTerm} />
+      {!(isLoading || releases.length) ? (
         <EmptyState />
       ) : (
         <Main

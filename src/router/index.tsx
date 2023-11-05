@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import ErrorBoundaryLayout from '../components/ErrorBoundaryLayout';
-import ReleaseItem from '../components/ReleaseItem';
+import Details from '../components/Details';
 import { Pathnames } from '../types';
 
 const router = createBrowserRouter([
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: Pathnames.release,
-            element: <ReleaseItem />,
+            children: [{ path: Pathnames.id, element: <Details /> }],
           },
         ],
       },

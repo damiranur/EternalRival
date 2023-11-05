@@ -2,7 +2,8 @@ import { ReactNode } from 'react';
 
 export enum Pathnames {
   index = '/',
-  release = '/release/:id',
+  release = '/release',
+  id = ':id',
 }
 
 export interface Release {

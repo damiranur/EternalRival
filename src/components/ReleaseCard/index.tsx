@@ -5,9 +5,7 @@ interface ReleaseCardProps {
   release: Release;
 }
 
-const ReleaseCard = (props: ReleaseCardProps) => {
-  const { release } = props;
-
+const ReleaseCard = ({ release }: ReleaseCardProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>

@@ -7,17 +7,14 @@ import styles from './Header.module.scss';
 
 interface HeaderProps {
   setSearchTerm: Dispatch<SetStateAction<string>>;
-  searchParams: URLSearchParams;
 }
 
-const Header = (props: HeaderProps) => {
-  const { setSearchTerm, searchParams } = props;
-
+const Header = ({ setSearchTerm }: HeaderProps) => {
   return (
     <header className={styles.header}>
       <Wrapper>
         <div className={styles.container}>
-          <Logo searchParams={searchParams} />
+          <Logo />
           <SearchBar setSearchTerm={setSearchTerm} />
           <ErrorButton />
         </div>

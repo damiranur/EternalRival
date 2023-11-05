@@ -1,4 +1,4 @@
-import { Dispatch, MouseEvent, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import classNames from 'classnames';
 import { generatePaginationItems } from '../../helpers/generatePaginationItems';
 import styles from './Pagination.module.scss';
@@ -10,28 +10,25 @@ interface PaginationProps {
   isLoading: boolean;
 }
 
-const Pagination = (props: PaginationProps) => {
-  const { currentPage, setCurrentPage, totalPages, isLoading } = props;
-
+const Pagination = ({
+  currentPage,
+  setCurrentPage,
+  totalPages,
+  isLoading,
+}: PaginationProps) => {
   const sequence = generatePaginationItems(currentPage, totalPages);
 
-  const handleNext = (event: MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
+  const handleNext = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  const handlePrev = (event: MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
+  const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  const handleClick = (
-    event: MouseEvent<HTMLElement>,
-    page: number | string
-  ) => {
-    event.stopPropagation();
+  const handleClick = (page: number | string) => {
     if (typeof page === 'number') {
       setCurrentPage(page);
     }
@@ -74,8 +71,8 @@ const Pagination = (props: PaginationProps) => {
             <li key={index} className={getListItemClassName(number)}>
               <button
                 type="button"
-                onClick={(event) => {
-                  handleClick(event, number);
+                onClick={() => {
+                  handleClick(number);
                 }}
                 className={styles.button}
                 disabled={isLoading}

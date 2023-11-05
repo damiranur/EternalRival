@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { fetchSingleRelease } from '../../services/apiService';
+import { useParams } from 'react-router-dom';
 import Loader from '../Loader';
-import styles from './ReleaseItem.module.scss';
+import styles from './Details.module.scss';
 
 interface ReleaseItem {
   artists: Array<{ name: string }>;
@@ -10,7 +10,7 @@ interface ReleaseItem {
   tracklist: Array<{ title: string; duration: string }>;
 }
 
-const ReleaseItem = () => {
+const Details = () => {
   const { id } = useParams();
   const [releaseData, setReleaseData] = useState<ReleaseItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +32,6 @@ const ReleaseItem = () => {
 
   useEffect(() => {
     getSingleRelease();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (isLoading) {
@@ -59,4 +58,4 @@ const ReleaseItem = () => {
   );
 };
 
-export default ReleaseItem;
+export default Details;

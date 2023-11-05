@@ -1,12 +1,13 @@
-import { Dispatch, MouseEvent, SetStateAction, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 import Wrapper from '../Wrapper';
 import Loader from '../Loader';
 import ReleasesList from '../ReleasesList';
 import Pagination from '../Pagination';
 import Dropdown from '../Dropdown';
 import CloseButton from '../CloseButton';
-import { Release } from '../../types';
+import { Pathnames, Release } from '../../types';
 import styles from './Main.module.scss';
 
 interface MainProps {
@@ -19,23 +20,38 @@ interface MainProps {
   isLoading: boolean;
 }
 
-const Main = (props: MainProps) => {
-  const {
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    perPage,
-    setPerPage,
-    releases,
-    isLoading,
-  } = props;
+const Main = ({
+  currentPage,
+  setCurrentPage,
+  totalPages,
+  perPage,
+  setPerPage,
+  releases,
+  isLoading,
+}: MainProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { search } = location;
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const storedIsOpen = localStorage.getItem('isOpen');
+  const [isOpen, setIsOpen] = useState(
+    storedIsOpen ? JSON.parse(storedIsOpen) : false
+  );
 
-  const handleLeftSectionClick = (event: MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    if (isOpen) setIsOpen(false);
+  useEffect(() => {
+    localStorage.setItem('isOpen', JSON.stringify(isOpen));
+  }, [isOpen]);
+
+  const handleLeftSectionClick = () => {
+    if (isOpen) {
+      setIsOpen(false);
+      navigate(`${Pathnames.index}${search}`);
+    }
   };
+
+  const rightSectionClasses = classNames(styles.rightSection, {
+    [styles.hidden]: !isOpen,
+  });
 
   return (
     <main className={styles.main}>
@@ -54,7 +70,13 @@ const Main = (props: MainProps) => {
               <Loader />
             ) : (
               <div className={styles.wrapper}>
-                <ReleasesList releases={releases} setIsOpen={setIsOpen} />
+                <ReleasesList
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  perPage={perPage}
+                  releases={releases}
+                  setIsOpen={setIsOpen}
+                />
                 <Pagination
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}
@@ -64,12 +86,10 @@ const Main = (props: MainProps) => {
               </div>
             )}
           </section>
-          {isOpen && (
-            <section className={styles.rightSection}>
-              <CloseButton setIsOpen={setIsOpen} />
-              <Outlet />
-            </section>
-          )}
+          <section className={rightSectionClasses}>
+            <CloseButton setIsOpen={setIsOpen} />
+            <Outlet />
+          </section>
         </div>
       </Wrapper>
     </main>
