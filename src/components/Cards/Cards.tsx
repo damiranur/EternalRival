@@ -1,41 +1,39 @@
 import './styled.css';
 import Person from './Person/Person';
 import { DataContext } from '../Context/Context';
-import { useContext, useEffect } from 'react';
-import { getData } from '../../api/data';
+import { useContext } from 'react';
+// import { getData } from '../../api/data';
+import { useLoaderData } from 'react-router-dom';
+import { IData } from '../../models/interface';
 
 function Cards() {
-  const { loader, data, setLoader, setData } = useContext(DataContext);
+  const apiData = useLoaderData() as IData;
+  const { loader } = useContext(DataContext);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     setLoader(true);
     const localStorageData = localStorage.getItem('data');
     if (localStorageData) {
-      const data = JSON.parse(localStorageData);
+      const apiData = JSON.parse(localStorageData);
       setTimeout(() => {
-        setData(data);
+        setData(apiData);
         setLoader(false);
       }, 1000);
       return;
     }
-    getData(1)
-      .then((res) => {
-        setData(res);
-        localStorage.setItem('data', JSON.stringify(res));
-        setLoader(false);
-      })
-      .catch((e: Error) => console.error('Error fetching data:', e.message));
-  }, [setData, setLoader]);
+    setLoader(false);
+  }, [setLoader]); */
 
-  console.log('Card: ', data);
   return (
     <div className="show_container alert alert-dismissible alert-warning">
       {loader ? (
-        <p>Loading...</p>
-      ) : data?.results.length ? (
-        data?.results.map((person, i) => <Person data={person} key={i} />)
+        <p key="loading">Loading...</p>
+      ) : apiData.results.length ? (
+        apiData.results.map((person) => (
+          <Person data={person} key={person.name} />
+        ))
       ) : (
-        <p>Not found</p>
+        <p key="not_found">Not found</p>
       )}
     </div>
   );

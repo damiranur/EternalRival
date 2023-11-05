@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './styled.css';
-import { getData } from '../../api/data';
 import { Link } from 'react-router-dom';
 
 /* type Props = {
@@ -10,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 function Search() {
   const [inputValue, setInputValue] = useState<string>('');
-  const getNewData = (value: string) => {
+  /*  const getNewData = (value: string) => {
     setLoader(true);
     getData(value)
       .then((res) => {
@@ -19,7 +18,7 @@ function Search() {
         setLoader(false);
       })
       .catch((e: Error) => console.error('Error fetching data:', e.message));
-  };
+  }; */
 
   return (
     <div className="search_container">
@@ -32,12 +31,8 @@ function Search() {
             setInputValue(event.target.value);
           }}
         />
-        <Link to={`/people/?search=${inputValue.toLowerCase()}`}>
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={() => getNewData(inputValue)}
-          >
+        <Link to={`search=${inputValue.toLowerCase()}`}>
+          <button type="button" className="btn btn-success">
             Search
           </button>
         </Link>

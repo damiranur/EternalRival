@@ -3,12 +3,12 @@ import './styled.css';
 
 type Props = {
   value: number;
-  click: (vlaue: number) => void;
 };
-function Number({ value, click }: Props) {
+
+function Number({ value }: Props) {
   return (
-    <Link to={`/people/?page=${value}`}>
-      <div onClick={() => click(value)} className="number_container">
+    <Link to={`page=${value}`}>
+      <div className="number_container">
         <p>{value}</p>
       </div>
     </Link>
