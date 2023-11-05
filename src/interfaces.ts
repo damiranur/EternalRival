@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 export interface SearchButtonProps {
   inputValue: string;
-  limit: number;
+  limit: string;
 }
 
 export interface ProductData {
@@ -59,8 +59,8 @@ export interface DataState {
   isLoading: boolean;
   totalProducts: number;
   setTotalProducts: React.Dispatch<React.SetStateAction<number>>;
-  setLimit: React.Dispatch<React.SetStateAction<number>>;
-  limit: number;
+  setLimit: React.Dispatch<React.SetStateAction<string>>;
+  limit: string;
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   totalPages: number;
@@ -80,7 +80,15 @@ export interface SearchParams {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setProductsData: React.Dispatch<React.SetStateAction<ProductData[] | null>>;
   inputValue: string;
-  limit: number;
+  limit: string;
   setTotalProducts: React.Dispatch<React.SetStateAction<number>>;
   page?: string;
+}
+
+export interface DetailedProductCardProps {
+  productData: ProductData | undefined;
+}
+
+export interface Location {
+  search: string;
 }

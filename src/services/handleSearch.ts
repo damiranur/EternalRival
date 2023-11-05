@@ -13,7 +13,7 @@ const handleSearch = async (params: SearchParams) => {
 
   setIsLoading(true);
   try {
-    const newState = await getProductsList(inputValue, limit, page);
+    const newState = await getProductsList(inputValue, +limit, page);
     setTotalProducts(newState.total);
     setProductsData(newState.results);
     localStorage.setItem('term', inputValue);

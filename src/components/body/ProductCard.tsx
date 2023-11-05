@@ -8,11 +8,13 @@ function ProductCard(props: ProductCardProps) {
 
   return (
     <div className={'product-card'}>
-      <ImageComponent
-        src={data.masterVariant.images[0].url}
-        alt={data.name + ' photo'}
-      />
-      <h2 className={'product-name'}>{data.name.en}</h2>
+      <div>
+        <ImageComponent
+          src={data.masterVariant.images[0].url}
+          alt={data.name + ' photo'}
+        />
+        <h2 className={'product-name'}>{data.name.en}</h2>
+      </div>
       <p className={'product-info'}>
         <span className={'product-price'}>Price: </span>
         {data.masterVariant.prices[0].value.centAmount / 100} EUR

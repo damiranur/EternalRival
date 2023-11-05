@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { setAnonymousToken } from './getToken';
 import { ProductList } from '../interfaces';
 
@@ -16,7 +16,7 @@ export async function getProductsList(
   try {
     const accessToken = JSON.parse(accessTokenJson!).access_token;
 
-    const response = await axios.get(
+    const response: AxiosResponse<ProductList> = await axios.get(
       `${apiUrl}/${projectKey}/product-projections/search`,
       {
         headers: {

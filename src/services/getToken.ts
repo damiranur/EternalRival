@@ -15,7 +15,6 @@ export async function getAnonymousToken() {
         Authorization: 'Basic ' + btoa(`${clientId}:${secret}`),
       },
     });
-    console.log(response);
     return response;
   } catch (e) {
     console.log(e);
@@ -28,3 +27,9 @@ export const setAnonymousToken = async () => {
     localStorage.setItem(`token`, JSON.stringify(id.data));
   }
 };
+
+export async function checkToken() {
+  if (!localStorage.getItem('token')) {
+    await setAnonymousToken();
+  }
+}

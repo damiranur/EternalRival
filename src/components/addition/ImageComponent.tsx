@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ImageComponentProps } from '../../interfaces';
+import { Loader } from './Loader';
 
 function ImageComponent({ src, alt }: ImageComponentProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -9,7 +10,7 @@ function ImageComponent({ src, alt }: ImageComponentProps) {
       {imageLoaded ? (
         <img src={src} alt={alt} className={'product-image'} />
       ) : (
-        <img className="loader" src="/src/assets/loading.gif" alt="loader" />
+        <Loader />
       )}
 
       {imageLoaded || (

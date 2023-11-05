@@ -20,6 +20,9 @@ function Pagination() {
   } = useContext(MyContext);
 
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  useEffect(() => {
+    setIsInitialLoad(false);
+  }, []);
 
   useEffect(() => {
     if (!isInitialLoad) {
@@ -32,16 +35,14 @@ function Pagination() {
         page,
       });
       product
-        ? navigate(`?page=${page}&product=${product}`)
-        : navigate(`?page=${page}`);
+        ? navigate(`?page=${page}&limit=${limit}&product=${product}`)
+        : navigate(`?page=${page}&limit=${limit}`);
     }
   }, [page, isInitialLoad]);
 
-  useEffect(() => {
-    setIsInitialLoad(false);
-  }, []);
-
+  const currentPage = +page > totalPages ? '1' : page;
   const pagesArray: string[] = getPagesArray(totalPages);
+
   return (
     <div className="pagination-pages">
       {pagesArray.map((p: string) => {
@@ -51,7 +52,7 @@ function Pagination() {
               setPage(p);
             }}
             className={
-              page === p
+              currentPage === p
                 ? 'pagination-page pagination-page-current'
                 : 'pagination-page'
             }

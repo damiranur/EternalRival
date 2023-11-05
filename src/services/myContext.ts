@@ -8,7 +8,7 @@ const MyContext = React.createContext<DataState>({
   isLoading: false,
   totalProducts: 0,
   inputValue: '',
-  limit: 0,
+  limit: '10',
   setInputValue: () => {},
   setLimit: () => {},
   totalPages: 0,

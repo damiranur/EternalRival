@@ -1,5 +1,5 @@
-function getPagesCount(totalElements: number, limit: number) {
-  return Math.ceil(totalElements / limit);
+function getPagesCount(totalElements: number, limit: string) {
+  return Math.ceil(totalElements / +limit);
 }
 
 export function getPagesArray(totalPages: number) {

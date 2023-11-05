@@ -26,7 +26,7 @@ function NavigationButtons({ inputValue, limit }: SearchButtonProps) {
             setTotalProducts,
           });
           setPage('1');
-          navigate(`?page=1`);
+          navigate(`?page=1&limit=10`);
         }}
       >
         Search
