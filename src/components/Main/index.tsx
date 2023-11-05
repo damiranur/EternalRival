@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import Wrapper from '../Wrapper';
 import Loader from '../Loader';
@@ -29,6 +29,7 @@ const Main = ({
   releases,
   isLoading,
 }: MainProps) => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { search } = location;
@@ -40,7 +41,10 @@ const Main = ({
 
   useEffect(() => {
     localStorage.setItem('isOpen', JSON.stringify(isOpen));
-  }, [isOpen]);
+    if (!id) {
+      setIsOpen(false);
+    }
+  }, [isOpen, id]);
 
   const handleLeftSectionClick = () => {
     if (isOpen) {
