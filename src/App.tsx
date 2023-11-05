@@ -1,54 +1,68 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Header from './components/Header';
 import Main from './components/Main';
-import { ApiCharactersData, PlaceholderProps, IAppState } from './types';
+import EmptyState from './components/EmptyState';
+import { Release } from './types';
 import { LOCAL_STORAGE_SEARCH_TERM } from './constants';
-import { fetchCharacters } from './services/apiService';
+import { fetchReleases } from './services/apiService';
 import styles from './App.module.scss';
 
-class App extends Component {
-  state: IAppState = {
-    searchTerm: localStorage.getItem(LOCAL_STORAGE_SEARCH_TERM) || '',
-    characters: [],
-    isLoading: true,
-  };
+const App = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [perPage, setPerPage] = useState(6);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [searchTerm, setSearchTerm] = useState<string>(
+    localStorage.getItem(LOCAL_STORAGE_SEARCH_TERM) || ''
+  );
+  const [releases, setReleases] = useState<Release[]>([]);
 
-  componentDidMount() {
-    this.fetchCharactersData();
-  }
-
-  componentDidUpdate(_prevProps: PlaceholderProps, prevState: IAppState) {
-    if (prevState.searchTerm !== this.state.searchTerm) {
-      this.fetchCharactersData();
+  const getReleases = async () => {
+    setIsLoading(true);
+    try {
+      const { results, pagination } = await fetchReleases(
+        searchTerm,
+        currentPage,
+        perPage
+      );
+      setReleases(results || []);
+      setCurrentPage(pagination.page);
+      setTotalPages(pagination.pages);
+      setPerPage(pagination.per_page);
+      setSearchParams({ page: String(pagination.page) });
+    } catch (error) {
+      setReleases([]);
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-  }
-
-  fetchCharactersData: () => void = () => {
-    this.setState({ isLoading: true });
-
-    fetchCharacters(this.state.searchTerm)
-      .then((data: ApiCharactersData) => {
-        this.setState({ characters: data?.results, isLoading: false });
-      })
-      .catch(() => {
-        this.setState({ characters: [], isLoading: false });
-      });
   };
 
-  setSearchTerm = (searchTerm: string) => {
-    this.setState({ searchTerm });
-  };
+  useEffect(() => {
+    getReleases();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm, currentPage, perPage]);
 
-  render() {
-    const { characters, isLoading } = this.state;
-
-    return (
-      <div className={styles.container}>
-        <Header setSearchTerm={this.setSearchTerm} />
-        <Main characters={characters} isLoading={isLoading} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={styles.container}>
+      <Header setSearchTerm={setSearchTerm} searchParams={searchParams} />
+      {!isLoading && !releases.length ? (
+        <EmptyState />
+      ) : (
+        <Main
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+          perPage={perPage}
+          setPerPage={setPerPage}
+          releases={releases}
+          isLoading={isLoading}
+        />
+      )}
+    </div>
+  );
+};
 
 export default App;
