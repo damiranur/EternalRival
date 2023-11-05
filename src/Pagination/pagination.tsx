@@ -15,7 +15,7 @@ export default function Pagination(props: PropsType) {
     const spread = Math.floor(countElPagination / 2);
     const start = Math.max(currentPage - spread, 0);
     const end = Math.min(currentPage + spread, props.countPage);
-    return new Array(Math.abs(end - start + 1)).fill(null).map((_, i) => start + i)
+    return new Array(Math.abs(end - start)).fill(null).map((_, i) => start + i)
   }
   return (
     <div className="button-pagination-wrapper">
@@ -44,10 +44,10 @@ export default function Pagination(props: PropsType) {
         })
       }
       {
-        currentPage !== props.countPage && (
+        currentPage !== (props.countPage - 1) && (
           <button
             className="button-pagination-next"
-            onClick={() => navigate(`/${props.search}?page=${props.countPage}`)}
+            onClick={() => navigate(`/${props.search}?page=${props.countPage - 1}`)}
           >
             &#8250;
           </button>

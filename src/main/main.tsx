@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Outlet, useLocation, useParams } from "react-router-dom";
-import CardItem from "../CardItem/cardItem";
+import CardItem from "../cardItem/cardItem";
 import Loader from "../loader/loader";
-import Pagination from "../Pagination/pagination";
+import Pagination from "../pagination/pagination";
 import { ResultItem, SearchResult } from "../models/search.model";
 import "./main.css";
 
@@ -23,7 +23,7 @@ export default function Main() {
 
   const elPerPage = 9;
   const currentPage = Number(new URLSearchParams(location.search).get('page'));
-  const countPage = Math.floor(state.itemsCount / elPerPage);
+  const countPage = Math.ceil(state.itemsCount / elPerPage);
   const search = params.search || "";
 
   useEffect(() => {
