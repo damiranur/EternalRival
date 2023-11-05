@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { ResultItem } from '../models/search.model';
-import { PokemonDescription, StatType } from '../models/pokemon.model';
-import './cardItem.css';
+import { useEffect, useState } from "react";
+import { ResultItem } from "../models/search.model";
+import { PokemonDescription, StatType } from "../models/pokemon.model";
+import "./cardItem.css";
 
 interface PropsType {
   item: ResultItem;
@@ -14,7 +14,7 @@ interface StateType {
 
 export default function CardItem(props: PropsType) {
   const [state, setState] = useState<StateType>({
-    img: '',
+    img: "",
     stats: [],
   });
 
@@ -25,7 +25,7 @@ export default function CardItem(props: PropsType) {
     .then((response: PokemonDescription) => {
       setState((prevState) => ({
         ...prevState,
-        img: response.sprites.other['official-artwork'].front_default,
+        img: response.sprites.other["official-artwork"].front_default,
         stats: response.stats,
       }));
     });

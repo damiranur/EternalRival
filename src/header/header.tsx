@@ -1,16 +1,14 @@
-import { useRef } from 'react';
-import './header.css';
+import { useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "./header.css";
 
-interface PropsType {
-  defaultValue: string;
-  searchItem: (value: string) => void;
-}
-
-export default function Header(props: PropsType) {
+export default function Header() {
+  const navigation = useNavigate();
+  const params = useParams();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const searchItemHandler = () => {
-    props.searchItem(inputRef.current!.value);
+    navigation(`/${inputRef.current!.value}`);
   }
 
   return (
@@ -20,7 +18,7 @@ export default function Header(props: PropsType) {
         <span className="text-field">
           <input
             ref={inputRef}
-            defaultValue={props.defaultValue}
+            defaultValue={params.search}
             id="search-input"
             type="text"
             required
