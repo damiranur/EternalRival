@@ -10,10 +10,8 @@ function Search({ request, click }: Props) {
   const text = useRef<HTMLInputElement>(null);
 
   const clickButtonSearch = () => {
-    if (text.current) {
-      text.current.value = '';
-    }
-    click('');
+    const value = text.current?.value || '';
+    click(value.trim());
   };
 
   return (

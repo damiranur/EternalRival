@@ -5,28 +5,21 @@ import PageNumber from './Number/Number';
 
 type Props = {
   totalPage: number;
-  currentPage: number;
   limit: number;
   switchPage: (value: number) => void;
   switchLimit: (value: number) => void;
 };
 
-function Pagination({
-  totalPage,
-  currentPage,
-  limit,
-  switchLimit,
-  switchPage,
-}: Props) {
+function Pagination({ totalPage, limit, switchLimit, switchPage }: Props) {
   const [pages, setPages] = useState<number[]>([]);
   const countPage = Math.ceil(totalPage / limit);
 
   useEffect(() => {
     const page = new Array(countPage);
-    console.log(page);
     for (let i = 1; i <= countPage; i++) {
       page.push(i);
     }
+    setPages(page);
   }, [countPage]);
 
   const changeLimit = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -38,27 +31,17 @@ function Pagination({
     }
     setPages(page);
   };
-  /*   useEffect(() => {
-    if (data === null) return setPagination([]);
-    const { count, results } = data;
-    const arrayPage: number[] = new Array(length);
-    for (let i = 0; i < length; i++) {
-      arrayPage[i] = i + 1;
-    }
-    setPagination([...arrayPage]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); */
+
+  const switchedPage = (value: number) => {
+    switchPage(value);
+    console.log(switchPage(value));
+  };
 
   return (
     <div className="pagination_container">
       <LimitSwitcher limit={limit} switcher={changeLimit} />
       {pages.map((item: number, i) => (
-        <PageNumber
-          value={item}
-          key={i}
-          click={switchPage}
-          countPages={currentPage}
-        />
+        <PageNumber value={item} key={i} click={switchedPage} />
       ))}
     </div>
   );

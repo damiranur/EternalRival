@@ -1,11 +1,12 @@
 // import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import MainLayout from './components/MainLayout';
 
 function App() {
   return (
-    <MainLayout />
-    /*     <ErrorBoundary>
-    </ErrorBoundary> */
+    <ErrorBoundary>
+      <MainLayout />
+    </ErrorBoundary>
   );
 }
 

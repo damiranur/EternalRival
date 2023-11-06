@@ -30,7 +30,6 @@ function MainLayout() {
   const changePage = (value: number) => {
     setCurrentPage(value);
     setParams({ [REQ_PARAM]: String(value) });
-    firstPage();
   };
 
   const changeLimit = (value: number) => {
@@ -40,6 +39,7 @@ function MainLayout() {
 
   const clickSearch = (value: string) => {
     setRequest(value);
+    firstPage();
   };
 
   return (
@@ -49,7 +49,6 @@ function MainLayout() {
       <Cards limit={limit} data={apiData} loader={loader} />
       <Pagination
         totalPage={maxResult}
-        currentPage={currentPage}
         limit={limit}
         switchLimit={changeLimit}
         switchPage={changePage}

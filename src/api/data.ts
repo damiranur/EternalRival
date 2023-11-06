@@ -5,32 +5,14 @@ import { IData, IPerson, ResourcesType } from '../models/interface';
 
 const url = `https://swapi.dev/api/${ResourcesType.People}/`;
 
-/* export async function getData(urlParams: string | number) {
-  const response: IData = await fetch(
-    `${url}${
-      typeof urlParams != 'string'
-        ? `?page=${urlParams}`
-        : `?search=${urlParams}`
-    }`,
-    {
-      method: 'GET',
-    }
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      return data;
-    });
-  return response;
-} */
-
 export const getData = async (
-  search: string,
+  request: string,
   page: number,
   limit: number,
   options: RequestInit = {}
 ): Promise<IData<IPerson>> => {
   const searchParams = new URLSearchParams();
-  search && searchParams.append('search', search);
+  request && searchParams.append('search', request);
   page && searchParams.append('page', page.toString());
   limit && searchParams.append('limit', limit.toString());
 
@@ -40,16 +22,3 @@ export const getData = async (
   }
   return res.json();
 };
-
-/* export const getDataWithParams = async ({
-  params,
-}: {
-  params: Readonly<Params<string>>;
-}) => {
-  const { param } = params;
-  const res = await fetch(url + `?${param}`);
-  if (!res.ok) {
-    throw Error('Not found!');
-  }
-  return res.json();
-}; */

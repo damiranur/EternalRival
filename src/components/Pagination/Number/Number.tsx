@@ -3,18 +3,12 @@ import './styled.css';
 type Props = {
   value: number;
   click: (value: number) => void;
-  countPages: number;
 };
 
-function PageNumber({ value, click, countPages }: Props) {
-  const disabled = value <= 1 || value >= countPages;
+function PageNumber({ value, click }: Props) {
   return (
-    <button
-      disabled={disabled}
-      onClick={() => click(value)}
-      className="number_container"
-    >
-      <p>{value}</p>
+    <button onClick={() => click(value)} className="number_container">
+      {value}
     </button>
   );
 }
