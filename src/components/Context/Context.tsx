@@ -5,11 +5,11 @@ import {
   createContext,
   useState,
 } from 'react';
-import { IData } from '../../models/interface';
+import { IData, IPerson } from '../../models/interface';
 
 interface IContext {
-  data: IData | null;
-  setData: Dispatch<SetStateAction<IData | null>>;
+  data: IData<IPerson[]> | null;
+  setData: Dispatch<SetStateAction<IData<IPerson[]> | null>>;
   loader: boolean;
   setLoader: Dispatch<SetStateAction<boolean>>;
 }
@@ -22,7 +22,7 @@ export const DataContext = createContext<IContext>({
 });
 
 export const Context = ({ children }: { children: ReactNode }) => {
-  const [data, setData] = useState<IData | null>(null);
+  const [data, setData] = useState<IData<IPerson[]> | null>(null);
   const [loader, setLoader] = useState<boolean>(false);
 
   const value = {

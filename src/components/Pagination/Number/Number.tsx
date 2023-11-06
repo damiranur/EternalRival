@@ -1,18 +1,22 @@
-import { Link } from 'react-router-dom';
 import './styled.css';
 
 type Props = {
   value: number;
+  click: (value: number) => void;
+  countPages: number;
 };
 
-function Number({ value }: Props) {
+function PageNumber({ value, click, countPages }: Props) {
+  const disabled = value <= 1 || value >= countPages;
   return (
-    <Link to={`page=${value}`}>
-      <div className="number_container">
-        <p>{value}</p>
-      </div>
-    </Link>
+    <button
+      disabled={disabled}
+      onClick={() => click(value)}
+      className="number_container"
+    >
+      <p>{value}</p>
+    </button>
   );
 }
 
-export default Number;
+export default PageNumber;

@@ -1,18 +1,59 @@
 import Search from './Search/Search';
 import ErrorButton from './ErrorButton/ErrorButton';
-import CardsLayout from './CardsLayout';
-import { useLoaderData } from 'react-router-dom';
-import { IData } from '../models/interface';
 import Pagination from './Pagination/Pagination';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import usePeoples from '../peopleHook/usePeoples';
+import Cards from './Cards/Cards';
+
+const REQ_PARAM = 'page';
+const PAGE = 1;
+const LIMIT = 10;
 
 function MainLayout() {
-  const data = useLoaderData() as IData;
+  const [request, setRequest] = useState(localStorage.getItem('request') || '');
+  const [limit, setLimit] = useState(LIMIT);
+  const [currentPage, setCurrentPage] = useState(PAGE);
+  const [params, setParams] = useSearchParams();
+  const data = {
+    request,
+    currentPage,
+    limit,
+  };
+  const [loader, apiData, maxResult] = usePeoples({ data });
+  const firstPage = () => {
+    setCurrentPage(PAGE);
+    params.delete(REQ_PARAM);
+    setParams(params);
+  };
+
+  const changePage = (value: number) => {
+    setCurrentPage(value);
+    setParams({ [REQ_PARAM]: String(value) });
+    firstPage();
+  };
+
+  const changeLimit = (value: number) => {
+    setLimit(value);
+    firstPage();
+  };
+
+  const clickSearch = (value: string) => {
+    setRequest(value);
+  };
+
   return (
     <div className="container">
-      <Search />
+      <Search request={request} click={clickSearch} />
       <ErrorButton />
-      <CardsLayout />
-      <Pagination data={data} />
+      <Cards limit={limit} data={apiData} loader={loader} />
+      <Pagination
+        totalPage={maxResult}
+        currentPage={currentPage}
+        limit={limit}
+        switchLimit={changeLimit}
+        switchPage={changePage}
+      />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 
-export interface IData {
+export interface IData<T> {
   count: number;
-  next: string;
-  previous: null | string;
-  results: IPerson[];
+  next: string | null;
+  previous: string | null;
+  results: T[];
 }
 
 export interface IPerson {
@@ -17,4 +17,8 @@ export interface IPerson {
 
 export interface ErrorProps {
   children?: ReactNode;
+}
+
+export const enum ResourcesType {
+  People = 'people',
 }

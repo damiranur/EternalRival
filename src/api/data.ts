@@ -1,8 +1,9 @@
 // import { Params } from 'react-router-dom';
-import { Params } from 'react-router-dom';
+// import { Params } from 'react-router-dom';
+import { IData, IPerson, ResourcesType } from '../models/interface';
 // import { IData } from '../models/interface';
 
-const url = 'https://swapi.dev/api/people/';
+const url = `https://swapi.dev/api/${ResourcesType.People}/`;
 
 /* export async function getData(urlParams: string | number) {
   const response: IData = await fetch(
@@ -22,18 +23,33 @@ const url = 'https://swapi.dev/api/people/';
   return response;
 } */
 
-export const getData = async () => {
-  const res = await fetch(url);
+export const getData = async (
+  search: string,
+  page: number,
+  limit: number,
+  options: RequestInit = {}
+): Promise<IData<IPerson>> => {
+  const searchParams = new URLSearchParams();
+  search && searchParams.append('search', search);
+  page && searchParams.append('page', page.toString());
+  limit && searchParams.append('limit', limit.toString());
+
+  const res = await fetch(url + '?' + searchParams, options);
+  if (!res.ok) {
+    throw Error('Not found!');
+  }
   return res.json();
 };
 
-export const getDataWithParams = async ({
+/* export const getDataWithParams = async ({
   params,
 }: {
   params: Readonly<Params<string>>;
 }) => {
   const { param } = params;
   const res = await fetch(url + `?${param}`);
-  console.log(res);
+  if (!res.ok) {
+    throw Error('Not found!');
+  }
   return res.json();
-};
+}; */

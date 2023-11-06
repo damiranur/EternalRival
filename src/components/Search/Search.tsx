@@ -1,41 +1,38 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import './styled.css';
-import { Link } from 'react-router-dom';
 
-/* type Props = {
-  setData: ([]: IPerson[]) => void;
-  setLoader: (value: boolean) => void;
-}; */
+type Props = {
+  request: string;
+  click: (value: string) => void;
+};
 
-function Search() {
-  const [inputValue, setInputValue] = useState<string>('');
-  /*  const getNewData = (value: string) => {
-    setLoader(true);
-    getData(value)
-      .then((res) => {
-        localStorage.setItem('results', JSON.stringify(res.results));
-        setData(res.results);
-        setLoader(false);
-      })
-      .catch((e: Error) => console.error('Error fetching data:', e.message));
-  }; */
+function Search({ request, click }: Props) {
+  const text = useRef<HTMLInputElement>(null);
+
+  const clickButtonSearch = () => {
+    if (text.current) {
+      text.current.value = '';
+    }
+    click('');
+  };
 
   return (
     <div className="search_container">
       <form>
         <input
+          ref={text}
           className="input form-control me-sm-2"
           placeholder="Search"
           type="text"
-          onChange={(event) => {
-            setInputValue(event.target.value);
-          }}
+          defaultValue={request}
         />
-        <Link to={`search=${inputValue.toLowerCase()}`}>
-          <button type="button" className="btn btn-success">
-            Search
-          </button>
-        </Link>
+        <button
+          type="button"
+          className="btn btn-success"
+          onClick={clickButtonSearch}
+        >
+          Search
+        </button>
       </form>
     </div>
   );

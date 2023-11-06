@@ -1,6 +1,5 @@
 import './styled.css';
 import { useState } from 'react';
-// import { IError } from '../../models/interface';
 
 function ErrorButton() {
   const [error, setError] = useState<boolean>(false);
