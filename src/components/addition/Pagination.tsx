@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import handleSearch from '../../services/handleSearch';
 import { getPagesArray } from '../../services/getPagesCount';
 import MyContext from '../../services/myContext';

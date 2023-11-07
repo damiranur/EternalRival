@@ -1,3 +1,3 @@
 export function Loader() {
-  return <img className="loader" src="/src/assets/loading.gif" alt="loading" />;
+  return <div className="loader"></div>;
 }

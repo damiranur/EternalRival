@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { AxiosResponse } from '../interfaces';
-
-const authUrl: string = 'https://auth.us-central1.gcp.commercetools.com';
-const projectKey: string = 'soap-shop';
-const secret: string = 'D2-f8EsBnWlpZgopdolhXmfiDa795vOt';
-const clientId: string = 'LTszMlT5Ri7IS0_ZZIVDCMsD';
+import { authUrl, clientId, projectKey, secret } from '../lib/constants';
 
 export async function getAnonymousToken() {
   try {

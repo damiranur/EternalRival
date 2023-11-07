@@ -38,7 +38,9 @@ function Header() {
   };
 
   useEffect(() => {
-    handleSearchAndNavigate();
+    if (isSelectCall) {
+      handleSearchAndNavigate();
+    }
   }, [limit]);
 
   return (

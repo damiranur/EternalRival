@@ -24,10 +24,7 @@ function DetailedProductPage() {
   }, [targetProductObj]);
 
   return (
-    <div
-      onClick={() => closeDetails(page, limit, navigate, setProduct)}
-      className="detailed-product-container"
-    >
+    <div className="detailed-product-container">
       <div className="product-page">
         <button
           className="detailed-product-close"
