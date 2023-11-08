@@ -7,7 +7,7 @@ function ProductCard(props: ProductCardProps) {
   if (!data) return;
 
   return (
-    <div className={'product-card'}>
+    <div data-testid="product-card" className={'product-card'}>
       <div>
         <ImageComponent
           src={data.masterVariant.images[0].url}

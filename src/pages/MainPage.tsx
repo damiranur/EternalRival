@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import Header from '../components/header/Header';
-import MainSection from '../components/body/MainSection';
+import CardList from '../components/body/CardList';
 import MyContext, { MyContextProvider } from '../services/myContext';
 import ErrorBoundary from '../components/addition/ErrorBoundary';
 import { checkToken } from '../services/getToken';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { closeDetails } from '../services/closeProductWindow';
 
-function Posts() {
+export function MainPage() {
   const navigate = useNavigate();
   const { details } = useParams();
   const { page, limit, setProduct } = useContext(MyContext);
@@ -25,7 +25,7 @@ function Posts() {
             }
           >
             <Header />
-            <MainSection />
+            <CardList />
           </div>
           <Outlet />
         </div>
@@ -34,4 +34,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default MainPage;

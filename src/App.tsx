@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
-import Posts from './pages/Posts';
+import MainPage from './pages/MainPage';
 import DetailedProductPage from './pages/DetailedProductPage';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Posts />}>
+      <Route path="/" element={<MainPage />}>
         <Route path="/:details" element={<DetailedProductPage />} />
       </Route>
     </Routes>

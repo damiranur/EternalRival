@@ -6,22 +6,23 @@ import Pagination from '../addition/Pagination';
 import { Link } from 'react-router-dom';
 import { Loader } from '../addition/Loader';
 
-function MainSection() {
+function CardList() {
   const { productsData, isLoading, page, limit } = useContext(MyContext);
-  const isCardsExist = productsData!.length !== 0;
-
   let content;
-  if (isLoading) {
-    content = <Loader />;
-  } else if (isCardsExist) {
-    content = productsData!.map((product: ProductData, index: number) => (
-      <Link
-        key={product.name.en}
-        to={`details/?page=${page}&limit=${limit}&product=${product.name.en}`}
-      >
-        <ProductCard key={index} data={product} />
-      </Link>
-    ));
+  if (productsData) {
+    const isCardsExist = productsData.length !== 0;
+    if (isLoading) {
+      content = <Loader />;
+    } else if (isCardsExist) {
+      content = productsData.map((product: ProductData, index: number) => (
+        <Link
+          key={product.name.en}
+          to={`details/?page=${page}&limit=${limit}&product=${product.name.en}`}
+        >
+          <ProductCard key={index} data={product} />
+        </Link>
+      ));
+    }
   } else {
     content = <h1>Oops! Character does not found</h1>;
   }
@@ -34,4 +35,4 @@ function MainSection() {
   );
 }
 
-export default MainSection;
+export default CardList;
