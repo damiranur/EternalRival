@@ -1,21 +1,16 @@
-import { Dispatch, SetStateAction } from 'react';
 import Wrapper from '../Wrapper';
 import ErrorButton from '../ErrorButton';
 import SearchBar from '../SearchBar';
 import Logo from '../Logo';
 import styles from './Header.module.scss';
 
-interface HeaderProps {
-  setSearchTerm: Dispatch<SetStateAction<string>>;
-}
-
-const Header = ({ setSearchTerm }: HeaderProps) => {
+const Header = () => {
   return (
     <header className={styles.header}>
       <Wrapper>
         <div className={styles.container}>
           <Logo />
-          <SearchBar setSearchTerm={setSearchTerm} />
+          <SearchBar />
           <ErrorButton />
         </div>
       </Wrapper>

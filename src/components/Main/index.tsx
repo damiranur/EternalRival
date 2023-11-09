@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import Wrapper from '../Wrapper';
@@ -7,40 +7,20 @@ import ReleasesList from '../ReleasesList';
 import Pagination from '../Pagination';
 import Dropdown from '../Dropdown';
 import CloseButton from '../CloseButton';
-import { Pathnames, Release } from '../../types';
+import { Routes } from '../../router/routes';
+import { useAppContext } from '../../context';
+import { LOCAL_STORAGE_IS_OPEN } from '../../constants';
 import styles from './Main.module.scss';
 
-interface MainProps {
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  perPage: number;
-  setPerPage: Dispatch<SetStateAction<number>>;
-  totalPages: number;
-  releases: Release[];
-  isLoading: boolean;
-}
-
-const Main = ({
-  currentPage,
-  setCurrentPage,
-  totalPages,
-  perPage,
-  setPerPage,
-  releases,
-  isLoading,
-}: MainProps) => {
+const Main = () => {
+  const { isLoading, isOpen, setIsOpen } = useAppContext();
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { search } = location;
 
-  const storedIsOpen = localStorage.getItem('isOpen');
-  const [isOpen, setIsOpen] = useState(
-    storedIsOpen ? JSON.parse(storedIsOpen) : false
-  );
-
   useEffect(() => {
-    localStorage.setItem('isOpen', JSON.stringify(isOpen));
+    localStorage.setItem(LOCAL_STORAGE_IS_OPEN, JSON.stringify(isOpen));
     if (!id) {
       setIsOpen(false);
     }
@@ -49,7 +29,7 @@ const Main = ({
   const handleLeftSectionClick = () => {
     if (isOpen) {
       setIsOpen(false);
-      navigate(`${Pathnames.index}${search}`);
+      navigate(`${Routes.index}${search}`);
     }
   };
 
@@ -65,33 +45,18 @@ const Main = ({
             onClick={handleLeftSectionClick}
             className={styles.leftSection}
           >
-            <Dropdown
-              perPage={perPage}
-              setPerPage={setPerPage}
-              setCurrentPage={setCurrentPage}
-            />
+            <Dropdown />
             {isLoading ? (
               <Loader />
             ) : (
               <div className={styles.wrapper}>
-                <ReleasesList
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  perPage={perPage}
-                  releases={releases}
-                  setIsOpen={setIsOpen}
-                />
-                <Pagination
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  totalPages={totalPages}
-                  isLoading={isLoading}
-                />
+                <ReleasesList />
+                <Pagination />
               </div>
             )}
           </section>
           <section className={rightSectionClasses}>
-            <CloseButton setIsOpen={setIsOpen} />
+            <CloseButton />
             <Outlet />
           </section>
         </div>

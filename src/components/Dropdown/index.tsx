@@ -1,19 +1,15 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
+import { useAppContext } from '../../context';
 import styles from './Dropdown.module.scss';
-
-interface DropdownProps {
-  perPage: number;
-  setPerPage: Dispatch<SetStateAction<number>>;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-}
 
 const dropdownValues: number[] = [4, 6, 8, 10, 12];
 
-const Dropdown = ({ perPage, setPerPage, setCurrentPage }: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string>('Select value');
-  const [selectedItem, setSelectedItem] = useState<number>(perPage);
+const Dropdown = () => {
+  const { perPage, setPerPage, setCurrentPage } = useAppContext();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState('Select value');
+  const [selectedItem, setSelectedItem] = useState(perPage);
   const toggleOpen = () => setIsOpen(!isOpen);
 
   const handleItemClick = (value: number) => {

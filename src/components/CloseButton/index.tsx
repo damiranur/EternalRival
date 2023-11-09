@@ -1,21 +1,15 @@
-import { Dispatch, SetStateAction } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CloseIcon from '../../assets/close-icon.svg';
-import { Pathnames } from '../../types';
+import { Routes } from '../../router/routes';
 import styles from './CloseButton.module.scss';
 
-interface CloseButtonProps {
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-const CloseButton = ({ setIsOpen }: CloseButtonProps) => {
+const CloseButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { search } = location;
 
   const handleClick = () => {
-    setIsOpen(false);
-    navigate(`${Pathnames.index}${search}`);
+    navigate(`${Routes.index}${search}`);
   };
 
   return (

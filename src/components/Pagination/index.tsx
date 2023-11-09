@@ -1,21 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
 import classNames from 'classnames';
+import { useAppContext } from '../../context';
 import { generatePaginationItems } from '../../helpers/generatePaginationItems';
 import styles from './Pagination.module.scss';
 
-interface PaginationProps {
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  totalPages: number;
-  isLoading: boolean;
-}
-
-const Pagination = ({
-  currentPage,
-  setCurrentPage,
-  totalPages,
-  isLoading,
-}: PaginationProps) => {
+const Pagination = () => {
+  const { currentPage, setCurrentPage, totalPages, isLoading } =
+    useAppContext();
   const sequence = generatePaginationItems(currentPage, totalPages);
 
   const handleNext = () => {

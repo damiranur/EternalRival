@@ -1,13 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { LOCAL_STORAGE_SEARCH_TERM } from '../../constants';
+import { useAppContext } from '../../context';
 import styles from './SearchBar.module.scss';
 
-interface SearchBarProps {
-  setSearchTerm: (searchTerm: string) => void;
-}
-
-const SearchBar = (props: SearchBarProps) => {
-  const { setSearchTerm } = props;
+const SearchBar = () => {
+  const { setSearchTerm } = useAppContext();
   const [searchValue, setSearchValue] = useState(
     localStorage.getItem(LOCAL_STORAGE_SEARCH_TERM) || ''
   );

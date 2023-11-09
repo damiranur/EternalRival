@@ -1,7 +1,11 @@
 import { Component } from 'react';
 import { ErrorInfo } from 'react-dom/client';
-import { ChildrenProps, ErrorBoundaryState } from '../../types';
+import { ChildrenProps } from '../../types';
 import styles from './ErrorBoundary.module.scss';
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
 
 class ErrorBoundary extends Component<ChildrenProps, ErrorBoundaryState> {
   state: ErrorBoundaryState = {

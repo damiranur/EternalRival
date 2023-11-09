@@ -1,25 +1,14 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Link } from 'react-router-dom';
-import { Pathnames, Release } from '../../types';
+import { Link, useLocation } from 'react-router-dom';
+import { Release } from '../../types';
 import ReleaseCard from '../ReleaseCard';
-import { LOCAL_STORAGE_SEARCH_TERM } from '../../constants';
+import { Routes } from '../../router/routes';
+import { useAppContext } from '../../context';
 import styles from './ReleasesList.module.scss';
 
-interface ReleasesListProps {
-  currentPage: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  perPage: number;
-  releases: Release[];
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-const ReleasesList = ({
-  currentPage,
-  perPage,
-  releases,
-  setIsOpen,
-}: ReleasesListProps) => {
-  const searchTerm = localStorage.getItem(LOCAL_STORAGE_SEARCH_TERM) || '';
+const ReleasesList = () => {
+  const { releases, setIsOpen } = useAppContext();
+  const location = useLocation();
+  const { search } = location;
 
   const handleClick = () => {
     setIsOpen(true);
@@ -31,12 +20,8 @@ const ReleasesList = ({
         <Link
           key={release.id}
           to={{
-            pathname: `${Pathnames.release}/${release.id}`,
-            search: new URLSearchParams({
-              q: searchTerm.trim(),
-              page: String(currentPage),
-              per_page: String(perPage),
-            }).toString(),
+            pathname: `${Routes.release}/${release.id}`,
+            search,
           }}
           onClick={handleClick}
           className={styles.link}
