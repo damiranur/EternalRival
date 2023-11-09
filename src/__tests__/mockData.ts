@@ -1,4 +1,4 @@
-import { DataState, ProductData } from '../../interfaces';
+import { DataState, ProductData } from '../interfaces';
 
 export const mockData: ProductData = {
   name: {
@@ -7,16 +7,16 @@ export const mockData: ProductData = {
   masterVariant: {
     images: [
       {
-        url: 'some url',
+        url: 'first image URL',
       },
       {
-        url: 'some url',
+        url: 'second image URL',
       },
     ],
     prices: [
       {
         value: {
-          centAmount: 3,
+          centAmount: 300,
         },
       },
     ],

@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import CardList from '../../components/body/CardList';
-import MyContext from '../../services/myContext';
+import CardList from '../components/body/CardList';
+import MyContext from '../services/myContext';
 import { BrowserRouter } from 'react-router-dom';
 import { contextValue, mockData } from './mockData';
-import { ProductData } from '../../interfaces';
+import { ProductData } from '../interfaces';
 import '@testing-library/jest-dom';
 
 describe('CardList', () => {
@@ -41,8 +41,9 @@ describe('CardList', () => {
       </MyContext.Provider>
     );
 
-    const errorMessageElement: HTMLHeadingElement =
-      screen.getByTestId('error-message');
+    const errorMessageElement: HTMLHeadingElement = screen.getByText(
+      'Oops! Products does not found'
+    );
     expect(errorMessageElement).toHaveTextContent(
       'Oops! Products does not found'
     );

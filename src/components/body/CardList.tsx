@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ProductCard from './ProductCard';
+import ProductCard from './Card';
 import MyContext from '../../services/myContext';
 import { ProductData } from '../../interfaces';
 import Pagination from '../addition/Pagination';
@@ -23,9 +23,7 @@ function CardList() {
         </Link>
       ));
     } else {
-      content = (
-        <h1 data-testid="error-message">Oops! Products does not found</h1>
-      );
+      content = <h1>Oops! Products does not found</h1>;
     }
   }
 

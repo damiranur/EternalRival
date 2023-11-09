@@ -15,6 +15,7 @@ function ImageComponent({ src, alt }: ImageComponentProps) {
 
       {imageLoaded || (
         <img
+          data-testid="product-image"
           src={src}
           alt={alt}
           style={{ display: 'none' }}
