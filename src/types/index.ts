@@ -1,11 +1,5 @@
 import { ReactNode } from 'react';
 
-export enum Pathnames {
-  index = '/',
-  release = '/release',
-  id = ':id',
-}
-
 export interface Release {
   id: number;
   title: string;
@@ -30,7 +24,3 @@ export type ReleasesResponse = {
 export type ChildrenProps = {
   children?: ReactNode;
 };
-
-export interface ErrorBoundaryState {
-  hasError: boolean;
-}
