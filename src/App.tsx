@@ -1,12 +1,12 @@
 import MainPage from './pages/MainPage';
-import AppProvider from './context';
+import AppContextProvider from './context';
 import './App.module.scss';
 
 const App = () => {
   return (
-    <AppProvider>
+    <AppContextProvider>
       <MainPage />
-    </AppProvider>
+    </AppContextProvider>
   );
 };
 
