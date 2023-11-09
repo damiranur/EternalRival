@@ -21,7 +21,7 @@ const Pagination = () => {
 
   const handleClick = (page: number | string) => {
     if (typeof page === 'number') {
-      setCurrentPage(dispatch, currentPage);
+      setCurrentPage(dispatch, page);
     }
   };
 
