@@ -1,8 +1,7 @@
 import { createQuery } from '../helpers/createQuery';
 import { ReleasesResponse } from '../types';
 
-const BASE_URL = 'https://api.discogs.com/database/search';
-const RELEASES_URL = 'https://api.discogs.com/releases/';
+const { VITE_BASE_URL, VITE_RELEASES_URL } = import.meta.env;
 
 export const fetchReleases = async (
   searchTerm: string,
@@ -12,7 +11,7 @@ export const fetchReleases = async (
   try {
     const queryParams = createQuery(searchTerm, currentPage, perPage);
 
-    const response = await fetch(`${BASE_URL}?${queryParams}`, {
+    const response = await fetch(`${VITE_BASE_URL}?${queryParams}`, {
       headers: {
         Accept: 'application/json',
       },
@@ -32,7 +31,7 @@ export const fetchReleases = async (
 
 export const fetchSingleRelease = async (id: string) => {
   try {
-    const response = await fetch(`${RELEASES_URL}${id}`);
+    const response = await fetch(`${VITE_RELEASES_URL}${id}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
