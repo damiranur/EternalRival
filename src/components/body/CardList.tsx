@@ -22,9 +22,11 @@ function CardList() {
           <ProductCard key={index} data={product} />
         </Link>
       ));
+    } else {
+      content = (
+        <h1 data-testid="error-message">Oops! Products does not found</h1>
+      );
     }
-  } else {
-    content = <h1>Oops! Character does not found</h1>;
   }
 
   return (
