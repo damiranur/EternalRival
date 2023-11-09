@@ -10,10 +10,12 @@ import CloseButton from '../CloseButton';
 import { Routes } from '../../router/routes';
 import { useAppContext } from '../../context';
 import { LOCAL_STORAGE_IS_OPEN } from '../../constants';
+import { setIsOpen } from '../../context/actions';
 import styles from './Main.module.scss';
 
 const Main = () => {
-  const { isLoading, isOpen, setIsOpen } = useAppContext();
+  const { state, dispatch } = useAppContext();
+  const { isOpen, isLoading } = state;
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,13 +24,13 @@ const Main = () => {
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_IS_OPEN, JSON.stringify(isOpen));
     if (!id) {
-      setIsOpen(false);
+      setIsOpen(dispatch, false);
     }
   }, [isOpen, id]);
 
   const handleLeftSectionClick = () => {
     if (isOpen) {
-      setIsOpen(false);
+      setIsOpen(dispatch, false);
       navigate(`${Routes.index}${search}`);
     }
   };

@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import classNames from 'classnames';
 import { useAppContext } from '../../context';
+import { setCurrentPage, setPerPage } from '../../context/actions';
+import { DEFAULT_CURRENT_PAGE } from '../../constants';
 import styles from './Dropdown.module.scss';
 
 const dropdownValues: number[] = [4, 6, 8, 10, 12];
 
 const Dropdown = () => {
-  const { perPage, setPerPage, setCurrentPage } = useAppContext();
+  const { state, dispatch } = useAppContext();
+  const { perPage } = state;
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState('Select value');
   const [selectedItem, setSelectedItem] = useState(perPage);
@@ -15,8 +18,8 @@ const Dropdown = () => {
   const handleItemClick = (value: number) => {
     setSelected(String(value));
     setSelectedItem(value);
-    setPerPage(value);
-    setCurrentPage(1);
+    setPerPage(dispatch, value);
+    setCurrentPage(dispatch, DEFAULT_CURRENT_PAGE);
   };
 
   const dropdownHeadClassNames = classNames(styles.dropdownHead, {

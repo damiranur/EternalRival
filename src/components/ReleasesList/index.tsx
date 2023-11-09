@@ -4,14 +4,16 @@ import ReleaseCard from '../ReleaseCard';
 import { Routes } from '../../router/routes';
 import { useAppContext } from '../../context';
 import styles from './ReleasesList.module.scss';
+import { setIsOpen } from '../../context/actions';
 
 const ReleasesList = () => {
-  const { releases, setIsOpen } = useAppContext();
+  const { state, dispatch } = useAppContext();
+  const { releases } = state;
   const location = useLocation();
   const { search } = location;
 
   const handleClick = () => {
-    setIsOpen(true);
+    setIsOpen(dispatch, true);
   };
 
   return (

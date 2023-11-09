@@ -5,25 +5,23 @@ import Main from '../../components/Main';
 import EmptyState from '../../components/EmptyState';
 import { fetchReleases } from '../../services/apiService';
 import { useAppContext } from '../../context';
+import {
+  setIsLoading,
+  setCurrentPage,
+  setPerPage,
+  setTotalPages,
+  setReleases,
+} from '../../context/actions';
 import styles from './MainPage.module.scss';
 
 const MainPage = () => {
   const [, setSearchParams] = useSearchParams();
-  const {
-    searchTerm,
-    perPage,
-    currentPage,
-    setCurrentPage,
-    setPerPage,
-    setTotalPages,
-    isLoading,
-    setIsLoading,
-    releases,
-    setReleases,
-  } = useAppContext();
+  const { state, dispatch } = useAppContext();
+  const { searchTerm, currentPage, perPage, isLoading, releases } = state;
 
   const getReleases = async () => {
-    setIsLoading(true);
+    setIsLoading(dispatch, true);
+
     try {
       const { results, pagination } = await fetchReleases(
         searchTerm,
@@ -31,10 +29,10 @@ const MainPage = () => {
         perPage
       );
 
-      setReleases(results || []);
-      setCurrentPage(pagination.page);
-      setTotalPages(pagination.pages);
-      setPerPage(pagination.per_page);
+      setReleases(dispatch, results || []);
+      setCurrentPage(dispatch, pagination.page);
+      setPerPage(dispatch, pagination.per_page);
+      setTotalPages(dispatch, pagination.pages);
 
       setSearchParams({
         q: searchTerm,
@@ -42,10 +40,9 @@ const MainPage = () => {
         per_page: String(pagination.per_page),
       });
     } catch (error) {
-      setReleases([]);
       console.error(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(dispatch, false);
     }
   };
 

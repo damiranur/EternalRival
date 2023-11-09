@@ -1,26 +1,27 @@
 import classNames from 'classnames';
 import { useAppContext } from '../../context';
 import { generatePaginationItems } from '../../helpers/generatePaginationItems';
+import { setCurrentPage } from '../../context/actions';
 import styles from './Pagination.module.scss';
 
 const Pagination = () => {
-  const { currentPage, setCurrentPage, totalPages, isLoading } =
-    useAppContext();
+  const { state, dispatch } = useAppContext();
+  const { currentPage, totalPages, isLoading } = state;
   const sequence = generatePaginationItems(currentPage, totalPages);
 
   const handleNext = () => {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage(dispatch, currentPage + 1);
   };
 
   const handlePrev = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setCurrentPage(dispatch, currentPage - 1);
     }
   };
 
   const handleClick = (page: number | string) => {
     if (typeof page === 'number') {
-      setCurrentPage(page);
+      setCurrentPage(dispatch, currentPage);
     }
   };
 
