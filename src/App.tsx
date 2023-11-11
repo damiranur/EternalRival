@@ -1,4 +1,3 @@
-// import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import MainLayout from './components/MainLayout';
 

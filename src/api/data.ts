@@ -5,7 +5,7 @@ import { IData, IPerson, ResourcesType } from '../models/interface';
 
 const url = `https://swapi.dev/api/${ResourcesType.People}/`;
 
-export const getData = async (
+export const getPeopleData = async (
   request: string,
   page: number,
   limit: number,
@@ -19,6 +19,14 @@ export const getData = async (
   const res = await fetch(url + '?' + searchParams, options);
   if (!res.ok) {
     throw Error('Not found!');
+  }
+  return res.json();
+};
+
+export const getPersonData = async (id: number, options: RequestInit = {}) => {
+  const res = await fetch(url + id, options);
+  if (!res.ok) {
+    throw Error('Not found person!');
   }
   return res.json();
 };

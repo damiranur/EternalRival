@@ -34,7 +34,6 @@ function Pagination({ totalPage, limit, switchLimit, switchPage }: Props) {
 
   const switchedPage = (value: number) => {
     switchPage(value);
-    console.log(switchPage(value));
   };
 
   return (

@@ -3,7 +3,7 @@ import ErrorButton from './ErrorButton/ErrorButton';
 import Pagination from './Pagination/Pagination';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import usePeoples from '../peopleHook/usePeoples';
+import usePeople from '../peopleHook/usePeople';
 import Cards from './Cards/Cards';
 
 const REQ_PARAM = 'page';
@@ -20,7 +20,7 @@ function MainLayout() {
     currentPage,
     limit,
   };
-  const [loader, apiData, maxResult] = usePeoples({ data });
+  const [loader, apiData, maxResult] = usePeople({ data });
   const firstPage = () => {
     setCurrentPage(PAGE);
     params.delete(REQ_PARAM);

@@ -13,6 +13,7 @@ export interface IPerson {
   skin_color: string;
   hair_color: string;
   mass: string;
+  url: string;
 }
 
 export interface ErrorProps {
