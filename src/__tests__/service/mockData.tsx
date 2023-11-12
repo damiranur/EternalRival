@@ -1,4 +1,8 @@
-import { DataState, ProductData } from '../interfaces';
+import { DataState, ProductData } from '../../interfaces';
+import jest from 'jest-mock';
+import Card from '../../components/body/Card';
+import { Outlet } from 'react-router-dom';
+import DetailedCard from '../../pages/DetailedCard';
 
 export const mockData: ProductData = {
   name: {
@@ -34,12 +38,31 @@ export const contextValue: DataState = {
   page: '1',
   setIsLoading: () => {},
   inputValue: '',
-  setInputValue: () => {},
+  setInputValue: (newValue) => {
+    if (typeof newValue === 'string') {
+      contextValue.inputValue = newValue;
+    }
+  },
   setLimit: () => {},
   totalPages: 0,
   setTotalProducts: () => {},
   setPage: () => {},
   product: '',
-  setProduct: () => {},
+  setProduct: jest.fn(),
   totalProducts: 0,
 };
+
+export const routesConfig = [
+  {
+    path: '/',
+    element: (
+      <>
+        <Card data={mockData} />
+        <Outlet />
+      </>
+    ),
+    children: [
+      { path: '/details/:queryParameters', element: <DetailedCard /> },
+    ],
+  },
+];

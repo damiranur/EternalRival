@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import CardList from '../components/body/CardList';
 import MyContext from '../services/myContext';
 import { BrowserRouter } from 'react-router-dom';
-import { contextValue, mockData } from './mockData';
+import { contextValue, mockData } from './service/mockData';
 import { ProductData } from '../interfaces';
 import '@testing-library/jest-dom';
 

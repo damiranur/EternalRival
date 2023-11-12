@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import NavigationButtons from './NavigationButtons';
+import React, { useContext, useEffect, useState } from 'react';
 import handleSearch from '../../services/handleSearch';
 import myContext from '../../services/myContext';
 import { useNavigate } from 'react-router-dom';
 
-function Header() {
+function Search() {
   const navigate = useNavigate();
   const [isSelectCall, setIsSelectCall] = useState(false);
   const {
@@ -18,6 +17,10 @@ function Header() {
     setInputValue,
     setPage,
   } = useContext(myContext);
+
+  const getError = () => {
+    setProductsData(null);
+  };
 
   const handleSearchAndNavigate = (isToFirstPage?: boolean) => {
     handleSearch({
@@ -50,7 +53,9 @@ function Header() {
         type="text"
         placeholder="Enter your search query"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+        }}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             handleSearchAndNavigate(true);
@@ -73,9 +78,28 @@ function Header() {
         <option value="15">15</option>
         <option value="20">20</option>
       </select>
-      <NavigationButtons inputValue={inputValue} limit={limit} />
+      <button
+        className={'header-button'}
+        onClick={() => {
+          console.log('Call HandleSearch With:', inputValue);
+          handleSearch({
+            setIsLoading,
+            setProductsData,
+            inputValue,
+            limit,
+            setTotalProducts,
+          });
+          setPage('1');
+          navigate(`?page=1&limit=10`);
+        }}
+      >
+        Search
+      </button>
+      <button className={'header-button'} onClick={getError}>
+        Get an error
+      </button>
     </header>
   );
 }
 
-export default Header;
+export default Search;

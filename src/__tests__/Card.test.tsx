@@ -1,6 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { mockData } from './mockData';
+import { mockData } from './service/mockData';
 import '@testing-library/jest-dom';
 import ProductCard from '../components/body/Card';
 

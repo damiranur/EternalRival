@@ -1,14 +1,19 @@
 import React, { useContext } from 'react';
-import { SearchButtonProps } from '../../interfaces';
 import myContext from '../../services/myContext';
 import handleSearch from '../../services/handleSearch';
 import { useNavigate } from 'react-router-dom';
 
-function NavigationButtons({ inputValue, limit }: SearchButtonProps) {
+function NavigationButtons() {
   const navigate = useNavigate();
-  const { setProductsData, setIsLoading, setTotalProducts, setPage } =
-    useContext(myContext);
-
+  const {
+    setProductsData,
+    setIsLoading,
+    setTotalProducts,
+    setPage,
+    inputValue,
+    limit,
+  } = useContext(myContext);
+  console.log('input in NavigBTNS: ', inputValue);
   const getError = () => {
     setProductsData(null);
   };
@@ -18,6 +23,7 @@ function NavigationButtons({ inputValue, limit }: SearchButtonProps) {
       <button
         className={'header-button'}
         onClick={() => {
+          console.log('Call HandleSearch With:', inputValue);
           handleSearch({
             setIsLoading,
             setProductsData,

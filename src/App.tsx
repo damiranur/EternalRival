@@ -1,13 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
 import MainPage from './pages/MainPage';
-import DetailedProductPage from './pages/DetailedProductPage';
+import DetailedCard from './pages/DetailedCard';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<MainPage />}>
-        <Route path="/:details" element={<DetailedProductPage />} />
+        <Route path="/details" element={<DetailedCard />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

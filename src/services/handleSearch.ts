@@ -10,7 +10,6 @@ const handleSearch = async (params: SearchParams) => {
     setTotalProducts,
     page,
   } = params;
-
   setIsLoading(true);
   try {
     const newState = await getProductsList(inputValue, +limit, page);

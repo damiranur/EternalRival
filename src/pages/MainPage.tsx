@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import Header from '../components/header/Header';
+import Search from '../components/header/Search';
 import CardList from '../components/body/CardList';
 import MyContext, { MyContextProvider } from '../services/myContext';
 import ErrorBoundary from '../components/addition/ErrorBoundary';
@@ -24,7 +24,7 @@ export function MainPage() {
               details && closeDetails(page, limit, navigate, setProduct)
             }
           >
-            <Header />
+            <Search />
             <CardList />
           </div>
           <Outlet />
