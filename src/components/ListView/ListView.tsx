@@ -10,16 +10,16 @@ export const ListView = () => {
 
   return (
     <>
-      {context.loading && <Loader />}
+      {context!.state.loading && <Loader />}
       <main className='main'>
         <div className='list-item'>
           {
-            context.items.length ? (
-              context.items.map((i) => {
+            context!.state.items.length ? (
+              context!.state.items.map((i) => {
                 return <CardItem key={i.name + i.url} item={i} />
               })
             ) : (
-              context.loading === false && (
+              context!.state.loading === false && (
                 <div className='not-found-wrapper'>
                   <span>Pokemons not found</span>
                   <button
@@ -32,7 +32,7 @@ export const ListView = () => {
             )
           }
           {
-            context.items.length !== 0 && context.loading === false && (
+            context!.state.items.length !== 0 && context!.state.loading === false && (
               <Pagination />
             )
           }

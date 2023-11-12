@@ -20,7 +20,7 @@ export const Header = () => {
         <span className='text-field'>
           <input
             ref={inputRef}
-            defaultValue={context.search}
+            defaultValue={context!.state.search}
             id='search-input'
             type='text'
             required

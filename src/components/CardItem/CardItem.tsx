@@ -39,11 +39,11 @@ export const CardItem = (props: PropsType) => {
   }, [props.item.url]);
 
   const openRightBlock = () => {
-    if (context.search) {
-      navigate(`/${context.search}/${state.id}?page=${context.currentPage}&count=${context.count}&detail=1`);
+    if (context!.state.search) {
+      navigate(`/${context!.state.search}/${state.id}?page=${context!.state.currentPage}&count=${context!.state.count}&detail=1`);
     }
     else {
-      navigate(`/${props.item.name}/${state.id}?page=${context.currentPage}&count=${context.count}&detail=1`);
+      navigate(`/${props.item.name}/${state.id}?page=${context!.state.currentPage}&count=${context!.state.count}&detail=1`);
     }
   }
 

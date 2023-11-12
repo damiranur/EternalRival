@@ -162,3 +162,12 @@ test('Check value after mount', () => {
   const searchInput = container.querySelector('#search-input') as HTMLInputElement;
   expect(searchInput.value).toBe(localStorage.getItem('search'));
 }, {timeout: 2000});
+
+test('404 page', () => {
+  window.history.pushState({}, '', '/foo/bar/foo/bar');
+  render(<App />);
+
+  screen.getByText(/Not found/i);
+  screen.getByText(/0100 0000 0100/i);
+  screen.getByText(/Go to main/i);
+});

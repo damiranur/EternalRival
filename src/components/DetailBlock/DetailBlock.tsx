@@ -13,13 +13,13 @@ export const DetailBlock = () => {
   const [loaded, setLoadead] = useState<boolean>(false);
 
   const closePage = () => {
-    navigation(`/${context.search}?page=${context.currentPage}&count=${context.count}`);
+    navigation(`/${context!.state.search}?page=${context!.state.currentPage}&count=${context!.state.count}`);
   }
 
   useEffect(() => {
-    if (context.detail === 1) {
+    if (context!.state.detail === 1) {
       setLoadead(false);
-      fetch('https://pokeapi.co/api/v2/pokemon/' + context.id)
+      fetch('https://pokeapi.co/api/v2/pokemon/' + context!.state.id)
         .then((response) => response.json())
         .then((response: PokemonDescription) => {
           setTimeout(() => {
@@ -39,12 +39,12 @@ export const DetailBlock = () => {
           setTimeout(closePage, 500);
         })
     }
-  }, [context.id, context.detail]);
+  }, [context!.state.id, context!.state.detail]);
 
   return (
     <div
       className={
-        `description-block ${context.detail ? 'description-block-show' : ''}`
+        `description-block ${context!.state.detail ? 'description-block-show' : ''}`
       }
     >
       {loaded ? (
