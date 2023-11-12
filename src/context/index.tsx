@@ -1,5 +1,11 @@
-import { createContext, useReducer, Dispatch, useContext } from 'react';
-import { ChildrenProps, Release } from '../types';
+import {
+  createContext,
+  useReducer,
+  Dispatch,
+  useContext,
+  ReactNode,
+} from 'react';
+import { Release } from '../types';
 import {
   DEFAULT_CURRENT_PAGE,
   DEFAULT_PER_PAGE,
@@ -48,8 +54,17 @@ export const useAppContext = () => {
   return context;
 };
 
-const AppContextProvider = ({ children }: ChildrenProps) => {
-  const [state, dispatch] = useReducer(appReducer, initialState);
+const AppContextProvider = ({
+  children,
+  mockData,
+}: {
+  children: ReactNode;
+  mockData?: Partial<InitialStateType>;
+}) => {
+  const [state, dispatch] = useReducer(appReducer, {
+    ...initialState,
+    ...mockData,
+  });
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>
