@@ -7,8 +7,9 @@ export async function getAnonymousToken() {
     const response: AxiosResponse = await axios({
       method: 'post',
       url: `${authUrl}/oauth/${projectKey}/anonymous/token?grant_type=client_credentials`,
-      headers: {
-        Authorization: 'Basic ' + btoa(`${clientId}:${secret}`),
+      auth: {
+        username: clientId,
+        password: secret,
       },
     });
     return response;
