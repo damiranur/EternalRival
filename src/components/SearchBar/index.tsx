@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { LOCAL_STORAGE_SEARCH_TERM } from '../../constants';
 import { useAppContext } from '../../context';
-import styles from './SearchBar.module.scss';
 import { setSearchTerm } from '../../context/actions';
+import styles from './SearchBar.module.scss';
 
 const SearchBar = () => {
   const { dispatch } = useAppContext();
@@ -13,12 +13,12 @@ const SearchBar = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchValue(value);
-    localStorage.setItem(LOCAL_STORAGE_SEARCH_TERM, value);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearchTerm(dispatch, searchValue);
+    localStorage.setItem(LOCAL_STORAGE_SEARCH_TERM, searchValue);
   };
 
   return (
