@@ -18,19 +18,21 @@ const ReleasesList = () => {
 
   return (
     <div className={styles.container}>
-      {releases?.map((release: Release) => (
-        <Link
-          key={release.id}
-          to={{
-            pathname: `${Routes.release}/${release.id}`,
-            search,
-          }}
-          onClick={handleClick}
-          className={styles.link}
-        >
-          <ReleaseCard release={release} />
-        </Link>
-      ))}
+      {releases
+        ? releases.map((release: Release) => (
+            <Link
+              key={release.id}
+              to={{
+                pathname: `${Routes.release}/${release.id}`,
+                search,
+              }}
+              onClick={handleClick}
+              className={styles.link}
+            >
+              <ReleaseCard release={release} />
+            </Link>
+          ))
+        : 'Not Found'}
     </div>
   );
 };
