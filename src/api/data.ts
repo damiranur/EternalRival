@@ -1,7 +1,4 @@
-// import { Params } from 'react-router-dom';
-// import { Params } from 'react-router-dom';
 import { IData, IPerson, ResourcesType } from '../models/interface';
-// import { IData } from '../models/interface';
 
 const url = `https://swapi.dev/api/${ResourcesType.People}/`;
 

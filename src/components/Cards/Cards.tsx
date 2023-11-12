@@ -1,24 +1,25 @@
 import './styled.css';
 import Person from './Person/Person';
-import { IPerson } from '../../models/interface';
 import { Link, Outlet } from 'react-router-dom';
+import { useContext } from 'react';
+import { PeopleContext } from '../../Context/peopleContext';
 
 type Props = {
   loader: boolean;
   limit: number;
-  data: IPerson[];
 };
 
-function Cards({ loader, limit, data }: Props) {
-  data.length = limit;
+function Cards({ loader, limit }: Props) {
+  const peopleData = useContext(PeopleContext);
+  peopleData.length = limit;
 
   return (
     <>
       <div className="show_container alert alert-dismissible alert-warning">
         {loader ? (
           <p key="loading">Loading...</p>
-        ) : data.length ? (
-          data.map((person) => {
+        ) : peopleData.length ? (
+          peopleData.map((person) => {
             const arrayFromUrl = person.url.split('/').filter((el) => el != '');
             const id = arrayFromUrl[arrayFromUrl.length - 1];
             return (

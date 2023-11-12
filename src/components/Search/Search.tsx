@@ -1,12 +1,13 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import './styled.css';
+import { SearchContext } from '../../Context/searchContext';
 
 type Props = {
-  request: string;
   click: (value: string) => void;
 };
 
-function Search({ request, click }: Props) {
+function Search({ click }: Props) {
+  const request = useContext(SearchContext);
   const text = useRef<HTMLInputElement>(null);
 
   const clickButtonSearch = () => {
