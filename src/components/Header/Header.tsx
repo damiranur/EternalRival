@@ -9,6 +9,7 @@ export const Header = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const searchItemHandler = () => {
+    localStorage.setItem('search', inputRef.current!.value);
     navigation(`/${String(inputRef.current!.value)}`);
   }
 

@@ -1,10 +1,11 @@
 import { useContext } from 'react';
 import { SearchContext } from '../../contexts';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { CardItem, Loader, Pagination } from '..';
 import './ListView.css';
 
 export const ListView = () => {
+  const navigate = useNavigate();
   const context = useContext(SearchContext);
 
   return (
@@ -12,11 +13,26 @@ export const ListView = () => {
       {context.loading && <Loader />}
       <main className='main'>
         <div className='list-item'>
-          {context.items.map((i) => {
-            return <CardItem key={i.name + i.url} item={i} />
-          })}
           {
-            context.items.length !== 0 && (
+            context.items.length ? (
+              context.items.map((i) => {
+                return <CardItem key={i.name + i.url} item={i} />
+              })
+            ) : (
+              context.loading === false && (
+                <div className='not-found-wrapper'>
+                  <span>Pokemons not found</span>
+                  <button
+                    onClick={() => {navigate('/')}}
+                  >
+                    Go to main
+                  </button>
+                </div>
+              )
+            )
+          }
+          {
+            context.items.length !== 0 && context.loading === false && (
               <Pagination />
             )
           }

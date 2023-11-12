@@ -55,7 +55,7 @@ export const CardItem = (props: PropsType) => {
     >
       <img src={state.img} alt={props.item.name} />
       <div>
-        <span>{props.item.name}</span>
+        <span className='pokemon-name'>{props.item.name}</span>
         <div className='pokemon-stats'>
           {state.stats.map((i) => {
             return (

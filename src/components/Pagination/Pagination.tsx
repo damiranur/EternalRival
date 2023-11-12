@@ -21,7 +21,7 @@ export const Pagination = () => {
   }
 
   const setCount = (count: number) => {
-    navigate(getPageLink(context.currentPage, count));
+    navigate(getPageLink(0, count));
   }
 
   const setPage = (page: number) => {

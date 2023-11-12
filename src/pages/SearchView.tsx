@@ -12,7 +12,7 @@ export const SearchView = () => {
   const count = Number(new URLSearchParams(location.search).get('count')) || 5;
   const currentPage = Number(new URLSearchParams(location.search).get('page')) || 0;
   const detail = Number(new URLSearchParams(location.search).get('detail')) || 0;
-  const search = params.search || '';
+  const search = params.search || localStorage.getItem('search') || '';
   const id = Number(params.id) || 0;
   
   const [state, setState] = useState<SearchContextType>({

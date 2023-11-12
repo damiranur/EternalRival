@@ -53,7 +53,6 @@ export const DetailBlock = () => {
           <div>Base Exp: { state!.base_experience }</div>
           <div>Weight: { state!.weight }</div>
           <div>Height: { state!.height }</div>
-          <div>Base Exp: { state!.base_experience }</div>
           <button
             onClick={closePage}
             className='close-description'
