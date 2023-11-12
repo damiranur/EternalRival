@@ -1,7 +1,7 @@
 import { createQuery } from '../helpers/createQuery';
 import { ReleasesResponse } from '../types';
 
-const { VITE_BASE_URL, VITE_RELEASES_URL } = import.meta.env;
+const { VITE_BASE_URL, VITE_RELEASES_URL } = process.env;
 
 export const fetchReleases = async (
   searchTerm: string,
