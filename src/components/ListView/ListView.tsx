@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Outlet, useLocation, useParams } from "react-router-dom";
-import CardItem from "../cardItem/cardItem";
-import Loader from "../loader/loader";
-import Pagination from "../pagination/pagination";
-import { ResultItem, SearchResult } from "../models/search.model";
-import "./main.css";
+import { ResultItem, SearchResult } from "../../models/search.model";
+import CardItem from "../CardItem/CardItem";
+import Loader from "../Loader/Loader";
+import Pagination from "../Pagination/Pagination";
+import "./ListView.css";
 
 interface StateType {
   loading: boolean;
@@ -21,7 +21,7 @@ export default function Main() {
     itemsCount: 0,
   });
 
-  const elPerPage = 9;
+  const elPerPage = Number(new URLSearchParams(location.search).get('count')) || 5;
   const currentPage = Number(new URLSearchParams(location.search).get('page'));
   const countPage = Math.ceil(state.itemsCount / elPerPage);
   const search = params.search || "";
@@ -45,7 +45,7 @@ export default function Main() {
         }, 500);
       })
       .catch(() => setState((prevState) => ({ ...prevState, loading: true })));
-  }, [params.search, currentPage]);
+  }, [params.search, currentPage, elPerPage]);
 
   return (
     <>

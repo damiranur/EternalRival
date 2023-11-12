@@ -1,10 +1,10 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import RightBlock from './rightBlock/rightBlock';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import RightBlock from './components/RightBlock/RightBlock';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import './index.css';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

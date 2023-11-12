@@ -1,8 +1,8 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Loader from "../loader/loader";
+import Loader from "../Loader/Loader";
 import "./rightBlock.css";
 import { useEffect, useState } from "react";
-import { PokemonDescription } from "../models/pokemon.model";
+import { PokemonDescription } from "../../models/pokemon.model";
 
 export default function RightBlock() {
   const navigation = useNavigate();
@@ -10,13 +10,14 @@ export default function RightBlock() {
   const params = useParams();
   const detail = Number(new URLSearchParams(location.search).get('detail'));
   const currentPage = Number(new URLSearchParams(location.search).get('page')); 
+  const count = Number(new URLSearchParams(location.search).get('count')) || 5; 
   const id = params.id;
 
   const [state, setState] = useState<PokemonDescription>();
   const [loaded, setLoadead] = useState<boolean>(false);
 
   const closePage = () => {
-    navigation(`${location.pathname}?page=${currentPage}`);
+    navigation(`${location.pathname}?page=${currentPage}&count=${count}`);
   }
 
   useEffect(() => {

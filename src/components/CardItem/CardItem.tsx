@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { ResultItem } from "../models/search.model";
-import { PokemonDescription, StatType } from "../models/pokemon.model";
+import { ResultItem } from "../../models/search.model";
+import { PokemonDescription, StatType } from "../../models/pokemon.model";
 import "./cardItem.css";
 
 interface PropsType {
@@ -19,7 +19,8 @@ export default function CardItem(props: PropsType) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const currentPage = Number(new URLSearchParams(location.search).get('page')); 
+  const currentPage = Number(new URLSearchParams(location.search).get('page'));
+  const count = Number(new URLSearchParams(location.search).get('count')) || 5;
 
   const [state, setState] = useState<StateType>({
     id: 0,
@@ -41,7 +42,7 @@ export default function CardItem(props: PropsType) {
   }, [props.item.url]);
 
   const openRightBlock = () => {
-    navigate(`/${params.search}/${state.id}?page=${currentPage}&detail=1`);
+    navigate(`/${params.search}/${state.id}?page=${currentPage}&count=${count}&detail=1`);
   }
 
   return (
