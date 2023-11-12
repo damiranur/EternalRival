@@ -2,4 +2,4 @@
 # .husky/pre-push
 
 # Run your pre-push commands or scripts
-npm test
+npm run test -- --watch=false
