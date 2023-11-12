@@ -40,20 +40,24 @@ const Details = () => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>
-        {releaseData?.artists.map((artist) => artist.name).join(', ')}
-      </h2>
-      <h3 className={styles.title}>{releaseData?.title}</h3>
-      <ul className={styles.tracklist}>
-        {releaseData?.tracklist.map((track, index) => {
-          return (
-            <li key={index} className={styles.track}>
-              <span>{`${index + 1}. ${track.title}`}</span>
-              <span>{track.duration}</span>
-            </li>
-          );
-        })}
-      </ul>
+      {releaseData && (
+        <>
+          <h2 className={styles.title}>
+            {releaseData.artists.map((artist) => artist.name).join(', ')}
+          </h2>
+          <h3 className={styles.title}>{releaseData?.title}</h3>
+          <ul className={styles.tracklist}>
+            {releaseData.tracklist.map((track, index) => {
+              return (
+                <li key={index} className={styles.track}>
+                  <span>{`${index + 1}. ${track.title}`}</span>
+                  <span>{track.duration}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
