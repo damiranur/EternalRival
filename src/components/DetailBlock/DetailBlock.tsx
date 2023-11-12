@@ -1,29 +1,25 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Loader from "../Loader/Loader";
-import "./rightBlock.css";
-import { useEffect, useState } from "react";
-import { PokemonDescription } from "../../models/pokemon.model";
+import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { PokemonDescription } from '../../models';
+import { Loader } from '..';
+import { SearchContext } from '../../contexts';
+import './DetailBlock.css';
 
-export default function RightBlock() {
+export const DetailBlock = () => {
+  const context = useContext(SearchContext);
   const navigation = useNavigate();
-  const location = useLocation();
-  const params = useParams();
-  const detail = Number(new URLSearchParams(location.search).get('detail'));
-  const currentPage = Number(new URLSearchParams(location.search).get('page')); 
-  const count = Number(new URLSearchParams(location.search).get('count')) || 5; 
-  const id = params.id;
 
   const [state, setState] = useState<PokemonDescription>();
   const [loaded, setLoadead] = useState<boolean>(false);
 
   const closePage = () => {
-    navigation(`${location.pathname}?page=${currentPage}&count=${count}`);
+    navigation(`/${context.search}?page=${context.currentPage}&count=${context.count}`);
   }
 
   useEffect(() => {
-    if (detail === 1) {
+    if (context.detail === 1) {
       setLoadead(false);
-      fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+      fetch('https://pokeapi.co/api/v2/pokemon/' + context.id)
         .then((response) => response.json())
         .then((response: PokemonDescription) => {
           setTimeout(() => {
@@ -43,14 +39,16 @@ export default function RightBlock() {
           setTimeout(closePage, 500);
         })
     }
-  }, [id, detail]);
+  }, [context.id, context.detail]);
 
   return (
     <div
-      className={`description-block ${detail ? "description-block-show" : ""}`}
+      className={
+        `description-block ${context.detail ? 'description-block-show' : ''}`
+      }
     >
       {loaded ? (
-        <div style={{"padding": 8}} className="description-main">
+        <div style={{'padding': 8}} className='description-main'>
           <h2>{ state!.name }</h2>
           <div>Base Exp: { state!.base_experience }</div>
           <div>Weight: { state!.weight }</div>
@@ -58,13 +56,13 @@ export default function RightBlock() {
           <div>Base Exp: { state!.base_experience }</div>
           <button
             onClick={closePage}
-            className="close-description"
+            className='close-description'
           >
             Close
           </button>
         </div>
       ) : (
-        <div className="description-main">
+        <div className='description-main'>
           <Loader />
         </div>
       )}

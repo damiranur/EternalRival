@@ -11,7 +11,7 @@ interface StateType {
   stack: string;
 }
 
-export default class ErrorBoundary extends React.Component<
+export class ErrorBoundary extends React.Component<
   PropsType,
   StateType
 > {
@@ -46,7 +46,7 @@ export default class ErrorBoundary extends React.Component<
   render() {
     if (this.state.error) {
       return (
-        <div className="error-description">
+        <div className='error-description'>
           <h2>Unhandled exception</h2>
           <span>{this.state.text}</span>
           <span>{this.state.stack}</span>

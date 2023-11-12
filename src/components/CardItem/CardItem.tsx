@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { ResultItem } from "../../models/search.model";
-import { PokemonDescription, StatType } from "../../models/pokemon.model";
-import "./cardItem.css";
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PokemonDescription, StatType } from '../../models/pokemon.model';
+import { ResultItem } from '../../models';
+import { SearchContext } from '../../contexts';
+import './CardItem.css';
 
 interface PropsType {
   item: ResultItem;
@@ -14,17 +15,13 @@ interface StateType {
   stats: StatType[];
 }
 
-export default function CardItem(props: PropsType) {
-  const params = useParams();
-  const location = useLocation();
+export const CardItem = (props: PropsType) => {
+  const context = useContext(SearchContext);
   const navigate = useNavigate();
-
-  const currentPage = Number(new URLSearchParams(location.search).get('page'));
-  const count = Number(new URLSearchParams(location.search).get('count')) || 5;
 
   const [state, setState] = useState<StateType>({
     id: 0,
-    img: "",
+    img: '',
     stats: [],
   });
 
@@ -35,26 +32,31 @@ export default function CardItem(props: PropsType) {
       setState((prevState) => ({
         ...prevState,
         id: response.id,
-        img: response.sprites.other["official-artwork"].front_default,
+        img: response.sprites.other['official-artwork'].front_default,
         stats: response.stats,
       }));
     });
   }, [props.item.url]);
 
   const openRightBlock = () => {
-    navigate(`/${params.search}/${state.id}?page=${currentPage}&count=${count}&detail=1`);
+    if (context.search) {
+      navigate(`/${context.search}/${state.id}?page=${context.currentPage}&count=${context.count}&detail=1`);
+    }
+    else {
+      navigate(`/${props.item.name}/${state.id}?page=${context.currentPage}&count=${context.count}&detail=1`);
+    }
   }
 
   return (
     <div
-      className="card-pokemon"
+      className='card-pokemon'
       key={props.item.name + props.item.url}
       onClick={openRightBlock}
     >
       <img src={state.img} alt={props.item.name} />
       <div>
         <span>{props.item.name}</span>
-        <div className="pokemon-stats">
+        <div className='pokemon-stats'>
           {state.stats.map((i) => {
             return (
               <span key={i.stat.url}>

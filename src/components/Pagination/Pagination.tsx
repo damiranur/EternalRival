@@ -1,36 +1,41 @@
-import { useNavigate, Link } from "react-router-dom";
-import "./pagination.css"
+import { useContext } from 'react';
+import { SearchContext } from '../../contexts';
+import { useNavigate, Link } from 'react-router-dom';
+import './Pagination.css'
 
-interface PropsType {
-  search: string;
-  countPage: number;
-}
-
-export default function Pagination(props: PropsType) {
+export const Pagination = () => {
   const navigate = useNavigate();
-  const count = Number(new URLSearchParams(location.search).get('count')) || 5;
-  const pagCount = 5;
-  const currentPage = Number(new URLSearchParams(location.search).get('page'));
+  const context = useContext(SearchContext);
+
+  const countPage = Math.ceil(context.itemsCount / context.count);
 
   const getNavigationRange = () => {
-    const spread = Math.floor(pagCount / 2);
-    const start = Math.max(currentPage - spread, 0);
-    const end = Math.min(currentPage + spread, props.countPage);
+    const spread = Math.floor(context.count / 2);
+    const start = Math.max(context.currentPage - spread, 0);
+    const end = Math.min(context.currentPage + spread, countPage);
     return new Array(Math.abs(end - start)).fill(null).map((_, i) => start + i)
   }
 
-  const setCountInPage = (count: number) => {
-    navigate(`/${props.search}?page=0&count=${count}`);
+  const getPageLink = (page: number, count: number) => {
+    return `/${context.search}?page=${page}&count=${count}`;
+  }
+
+  const setCount = (count: number) => {
+    navigate(getPageLink(context.currentPage, count));
+  }
+
+  const setPage = (page: number) => {
+    navigate(getPageLink(page, context.count));
   }
 
   return (
-    <div className="button-pagination-wrapper">
-      <div className="pagination-wrapper">
+    <div className='button-pagination-wrapper'>
+      <div className='pagination-wrapper'>
         {
-          currentPage !== 0 && (
+          context.currentPage !== 0 && (
             <button
-              className="button-pagination-back"
-              onClick={() => navigate(`/${props.search}?page=0&count=${count}`)}
+              className='button-pagination-back'
+              onClick={() => setPage(0)}
             >
               &#8249;
             </button>
@@ -38,12 +43,11 @@ export default function Pagination(props: PropsType) {
         }
         {
           getNavigationRange().map((i) => {
-            const link = `/${props.search}?page=${i}&count=${count}`;
             return (
               <Link
-                key={"paginationButto" + i}
-                className="pagination-item"
-                to={link}
+                key={'paginationButto' + i}
+                className='pagination-item'
+                to={getPageLink(i, context.count)}
               >
                 {i + 1}
               </Link>
@@ -51,35 +55,35 @@ export default function Pagination(props: PropsType) {
           })
         }
         {
-          currentPage !== (props.countPage - 1) && (
+          context.currentPage !== (countPage - 1) && (
             <button
-              className="button-pagination-next"
-              onClick={() => navigate(`/${props.search}?page=${props.countPage - 1}&count=${count}`)}
+              className='button-pagination-next'
+              onClick={() => setPage(countPage - 1)}
             >
               &#8250;
             </button>
           )
         }
       </div>
-      <div className="pagination-count">
+      <div className='pagination-count'>
         <button 
-          style={{"width": 32}} 
-          className="button-pagination-set"
-          onClick={() => setCountInPage(5)}
+          style={{'width': 32}} 
+          className='button-pagination-set'
+          onClick={() => setCount(5)}
         >
           5
         </button>
         <button 
-          style={{"width": 32}}
-          className="button-pagination-set"
-          onClick={() => setCountInPage(10)}
+          style={{'width': 32}}
+          className='button-pagination-set'
+          onClick={() => setCount(10)}
         >
           10
         </button>
         <button 
-          style={{"width": 32}} 
-          className="button-pagination-set"
-          onClick={() => setCountInPage(15)}
+          style={{'width': 32}} 
+          className='button-pagination-set'
+          onClick={() => setCount(15)}
         >
           15
         </button>

@@ -1,10 +1,10 @@
-import "./loader.css";
+import './Loader.css';
 
-export default function Loader() {
+export const Loader = () => {
   return (
-    <div className="loader-progress">
-      <span className="loader-open"></span>
-      <span className="loader-close"></span>
+    <div className='loader-progress'>
+      <span className='loader-open'></span>
+      <span className='loader-close'></span>
     </div>
   );
 }
