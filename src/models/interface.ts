@@ -21,5 +21,5 @@ export interface ErrorProps {
 }
 
 export const enum ResourcesType {
-  People = 'peoples',
+  People = 'people',
 }
