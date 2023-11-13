@@ -45,6 +45,7 @@ function usePeople({ data }: Props) {
         setPeople(results);
         setLoader(false);
       } catch (e) {
+        setLoader(false);
         console.error('Fetch People ERROR', (e as Error).message);
       }
     };

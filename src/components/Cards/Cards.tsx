@@ -11,7 +11,8 @@ type Props = {
 
 function Cards({ loader, limit }: Props) {
   const peopleData = useContext(PeopleContext);
-  peopleData.length = limit;
+  if (peopleData.length) peopleData.length = limit;
+  console.log(peopleData);
 
   return (
     <>
