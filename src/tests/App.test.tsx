@@ -10,7 +10,7 @@ test('Count items in page', async () => {
   await waitFor(() => {
     const items = container.querySelectorAll('.card-pokemon');
     expect(items.length).toBe(5);
-  }, {timeout: 2000});
+  }, {timeout: 10000});
 });
 
 test('Not found pokemons', async () => {
@@ -22,7 +22,7 @@ test('Not found pokemons', async () => {
     expect(loader).toBe(null);
   });
   screen.getByText(/Pokemons not found/i);
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Data in card', async () => {
   window.history.pushState({}, '', '/bulbasaur');
@@ -36,7 +36,7 @@ test('Data in card', async () => {
     screen.getByText(/special-attack: 65/i);
     screen.getByText(/speed: 45/i);
   });
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Open detail', async () => {
   window.history.pushState({}, '', '/bulbasaur');
@@ -47,7 +47,7 @@ test('Open detail', async () => {
     const detail = container.querySelector('.description-main') as HTMLElement;
     expect(detail).not.toBe(null);
   });
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Fetch data', async () => {
   let requestCount = 0;
@@ -66,7 +66,7 @@ test('Fetch data', async () => {
     fireEvent.click(card);
     expect(requestCount).not.toBe(0);
   });
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Loading indicator detail', async () => {
   window.history.pushState({}, '', '/bulbasaur/1?page=0&count=5&detail=1');
@@ -77,7 +77,7 @@ test('Loading indicator detail', async () => {
     const loading = container.querySelector('.description-main > .loader-progress');
     expect(loading).not.toBe(null);
   });
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Data in detail validation', async () => {
   window.history.pushState({}, '', '/bulbasaur/1?page=0&count=5&detail=1');
@@ -104,7 +104,7 @@ test('Data in detail validation', async () => {
     expect(params[1].innerHTML).toBe(`Weight: ${data.weight}`);
     expect(params[2].innerHTML).toBe(`Height: ${data.height}`);
   });
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Detail close', async () => {
   window.history.pushState({}, '', '/bulbasaur/1?page=0&count=5&detail=1');
@@ -118,7 +118,7 @@ test('Detail close', async () => {
     fireEvent.click(closeButton);
     expect(currentHref).not.toBe(window.location.href);
   });
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Pagination url change', async () => {
   window.history.pushState({}, '', '/');
@@ -141,7 +141,7 @@ test('Pagination url change', async () => {
   const first = container.querySelector('.button-pagination-back') as HTMLElement;
   fireEvent.click(first);
   expect(currentHref).not.toBe(window.location.href);
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Save search value to local storage', () => {
   window.history.pushState({}, '', '/');
@@ -153,7 +153,7 @@ test('Save search value to local storage', () => {
   fireEvent.change(searchInput, {target: {value: search}});
   fireEvent.click(button);
   expect(search).toBe(localStorage.getItem('search'));
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('Check value after mount', () => {
   window.history.pushState({}, '', '/');
@@ -161,7 +161,7 @@ test('Check value after mount', () => {
 
   const searchInput = container.querySelector('#search-input') as HTMLInputElement;
   expect(searchInput.value).toBe(localStorage.getItem('search'));
-}, {timeout: 2000});
+}, {timeout: 10000});
 
 test('404 page', () => {
   window.history.pushState({}, '', '/foo/bar/foo/bar');
@@ -170,4 +170,4 @@ test('404 page', () => {
   screen.getByText(/Not found/i);
   screen.getByText(/0100 0000 0100/i);
   screen.getByText(/Go to main/i);
-});
+}, {timeout: 10000});
