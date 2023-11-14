@@ -29,6 +29,7 @@ export const NotFound = () => {
         Not found
       </div>
       <button
+        id="button-back-not-found"
         style={{
           background: '#fff',
           border: '1px solid #000',

@@ -21,7 +21,11 @@ test('Not found pokemons', async () => {
     const loader = container.querySelector('.loader-progress');
     expect(loader).toBe(null);
   });
+
+  const button = container.querySelector('.button-not-found-main') as HTMLButtonElement;
   screen.getByText(/Pokemons not found/i);
+  fireEvent.click(button);
+  expect(window.location.pathname, '/');
 }, {timeout: 10000});
 
 test('Data in card', async () => {
@@ -178,3 +182,26 @@ test('Check error boudnary', () => {
 
   screen.getByText(/Unhandled exception/i);
 }, {timeout: 10000});
+
+test('Check navigate in 404', () => {
+  window.history.pushState({}, '', '/foo/bar/foo/bar');
+  const { container } = render(<App />);
+
+  const button = container.querySelector('#button-back-not-found') as HTMLButtonElement;
+  fireEvent.click(button);
+  expect(window.location.pathname).toBe('/');
+}, {timeout: 10000});
+
+test('Pagination by num page',  async () => {
+  window.history.pushState({}, '', '/pikachu');
+  const { container } = render(<App />);
+
+  await waitFor(() => {
+    const button = container.querySelector('.pagination-item') as HTMLElement;
+    expect(button).not.toBe(null);
+  });
+  const button = container.querySelector('.pagination-item') as HTMLElement;
+  fireEvent.click(button);
+
+  expect(window.location.search).not.toBe('');
+}, {timeout: 10000})

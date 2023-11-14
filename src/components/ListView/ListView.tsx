@@ -23,6 +23,7 @@ export const ListView = () => {
                 <div className='not-found-wrapper'>
                   <span>Pokemons not found</span>
                   <button
+                    className='button-not-found-main'
                     onClick={() => {navigate('/')}}
                   >
                     Go to main
