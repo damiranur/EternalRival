@@ -171,3 +171,10 @@ test('404 page', () => {
   screen.getByText(/0100 0000 0100/i);
   screen.getByText(/Go to main/i);
 }, {timeout: 10000});
+
+test('Check error boudnary', () => {
+  window.history.pushState({}, '', '/error');
+  render(<App />);
+
+  screen.getByText(/Unhandled exception/i);
+}, {timeout: 10000});
