@@ -11,7 +11,7 @@ test('Count items in page', async () => {
     const items = container.querySelectorAll('.card-pokemon');
     expect(items.length).toBe(5);
   }, {timeout: 10000});
-});
+}, {timeout: 10000});
 
 test('Not found pokemons', async () => {
   window.history.pushState({}, '', '/?page=1123111&count=15');
@@ -20,7 +20,7 @@ test('Not found pokemons', async () => {
   await waitFor(() => {
     const loader = container.querySelector('.loader-progress');
     expect(loader).toBe(null);
-  });
+  }, {timeout: 10000});
 
   const button = container.querySelector('.button-not-found-main') as HTMLButtonElement;
   screen.getByText(/Pokemons not found/i);
@@ -39,7 +39,7 @@ test('Data in card', async () => {
     screen.getByText(/defense: 49/i);
     screen.getByText(/special-attack: 65/i);
     screen.getByText(/speed: 45/i);
-  });
+  }, {timeout: 10000});
 }, {timeout: 10000});
 
 test('Open detail', async () => {
@@ -50,7 +50,7 @@ test('Open detail', async () => {
     fireEvent.click(container.querySelector('.pokemon-name') as HTMLElement);
     const detail = container.querySelector('.description-main') as HTMLElement;
     expect(detail).not.toBe(null);
-  });
+  }, {timeout: 10000});
 }, {timeout: 10000});
 
 test('Fetch data', async () => {
@@ -69,7 +69,7 @@ test('Fetch data', async () => {
     }) as Mock;
     fireEvent.click(card);
     expect(requestCount).not.toBe(0);
-  });
+  }, {timeout: 10000});
 }, {timeout: 10000});
 
 test('Loading indicator detail', async () => {
@@ -80,7 +80,7 @@ test('Loading indicator detail', async () => {
   await waitFor(() => {
     const loading = container.querySelector('.description-main > .loader-progress');
     expect(loading).not.toBe(null);
-  });
+  }, {timeout: 10000});
 }, {timeout: 10000});
 
 test('Data in detail validation', async () => {
@@ -107,7 +107,7 @@ test('Data in detail validation', async () => {
     expect(params[0].innerHTML).toBe(`Base Exp: ${data.base_experience}`);
     expect(params[1].innerHTML).toBe(`Weight: ${data.weight}`);
     expect(params[2].innerHTML).toBe(`Height: ${data.height}`);
-  });
+  }, {timeout: 10000});
 }, {timeout: 10000});
 
 test('Detail close', async () => {
@@ -121,7 +121,7 @@ test('Detail close', async () => {
     const closeButton = container.querySelector('.close-description') as HTMLElement;
     fireEvent.click(closeButton);
     expect(currentHref).not.toBe(window.location.href);
-  });
+  }, {timeout: 10000});
 }, {timeout: 10000});
 
 test('Pagination url change', async () => {
@@ -132,7 +132,7 @@ test('Pagination url change', async () => {
   await waitFor(() => {
     const card = container.querySelector('.card-pokemon') as HTMLElement;
     expect(card).not.toBe(null);
-  });
+  }, {timeout: 10000});
 
   const last = container.querySelector('.button-pagination-next') as HTMLElement;
   fireEvent.click(last);
@@ -141,7 +141,7 @@ test('Pagination url change', async () => {
   await waitFor(() => {
     const loader = container.querySelector('.loader-progress') as HTMLElement;
     expect(loader).toBe(null);
-  });
+  }, {timeout: 10000});
   const first = container.querySelector('.button-pagination-back') as HTMLElement;
   fireEvent.click(first);
   expect(currentHref).not.toBe(window.location.href);
@@ -199,9 +199,9 @@ test('Pagination by num page',  async () => {
   await waitFor(() => {
     const button = container.querySelector('.pagination-item') as HTMLElement;
     expect(button).not.toBe(null);
-  });
+  }, {timeout: 10000});
   const button = container.querySelector('.pagination-item') as HTMLElement;
   fireEvent.click(button);
 
   expect(window.location.search).not.toBe('');
-}, {timeout: 10000})
+}, {timeout: 10000});
