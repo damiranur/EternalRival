@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "format:fix": "prettier . --write --color",
     "prepare": "husky install",
-    "test": "vitest --run && vitest run --coverage"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "localforage": "^1.10.0",
