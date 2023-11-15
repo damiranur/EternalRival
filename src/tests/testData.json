@@ -2,12 +2,20 @@
   "abilities": [
       {
           "ability": {
-              "name": "overgrow kwjhfkjahrf",
+              "name": "overgrow",
               "url": "https://pokeapi.co/api/v2/ability/65/"
           },
           "is_hidden": false,
           "slot": 1
       },
+      {
+        "ability": {
+            "name": " test",
+            "url": "https://pokeapi.co/api/v2/ability/65/"
+        },
+        "is_hidden": false,
+        "slot": 1
+    },
       {
           "ability": {
               "name": "chlorophyll",
