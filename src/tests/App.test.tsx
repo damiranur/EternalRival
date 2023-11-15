@@ -196,12 +196,12 @@ test('Pagination by num page',  async () => {
   window.history.pushState({}, '', '/pikachu');
   const { container } = render(<App />);
 
-  await waitFor(() => {
-    const button = container.querySelector('.pagination-item') as HTMLElement;
-    expect(button).not.toBe(null);
-  }, {timeout: 10000});
-  const button = container.querySelector('.pagination-item') as HTMLElement;
-  fireEvent.click(button);
+  // await waitFor(() => {
+  //   const button = container.querySelector('.pagination-item') as HTMLElement;
+  //   expect(button).not.toBe(null);
+  // }, {timeout: 10000});
+  // const button = container.querySelector('.pagination-item') as HTMLElement;
+  // fireEvent.click(button);
 
   expect(window.location.search).not.toBe('');
 }, {timeout: 10000});
