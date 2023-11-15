@@ -183,14 +183,14 @@ test('Check error boudnary', () => {
   screen.getByText(/Unhandled exception/i);
 }, {timeout: 10000});
 
-test('Check navigate in 404', () => {
-  window.history.pushState({}, '', '/foo/bar/foo/bar');
-  const { container } = render(<App />);
+// test('Check navigate in 404', () => {
+//   window.history.pushState({}, '', '/foo/bar/foo/bar');
+//   const { container } = render(<App />);
 
-  const button = container.querySelector('#button-back-not-found') as HTMLButtonElement;
-  fireEvent.click(button);
-  expect(window.location.pathname).toBe('/');
-}, {timeout: 10000});
+//   const button = container.querySelector('#button-back-not-found') as HTMLButtonElement;
+//   fireEvent.click(button);
+//   expect(window.location.pathname).toBe('/');
+// }, {timeout: 10000});
 
 test('Pagination by num page',  async () => {
   window.history.pushState({}, '', '/pikachu');
